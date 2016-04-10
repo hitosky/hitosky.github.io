@@ -68,7 +68,7 @@
 	float:right;
 	font-family: Arial;
 	color: gray;
-	margin-bottom: 1px;
+	margin-top: 0.5em;
 }
 .category{
 	color: blue;
@@ -78,7 +78,7 @@
 	font-family: Arial;
 	font-weight: bold;
 	margin-right: 2px;
-	margin-bottom: 1px;
+	margin-top: 0.5em;
 
 }
 #article>span{
