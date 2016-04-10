@@ -10,25 +10,11 @@ function Article(title,category,strDate,url){
 	this.title=title;
 	this.category=category;
 	this.date=strDate;
-	this.url='##'
+	this.url=url
 }
 //所有文章,按日期存储
 var articleList=[
-new Article('css1',categoryList[1],'|2016.4.30'),
-new Article('css2',categoryList[1],'|2016.4.29'),
-new Article('js1',categoryList[2],'|2016.4.28'),
-new Article('js2',categoryList[2],'|2016.4.27'),
-new Article('css3',categoryList[1],'|2016.4.27'),
-new Article('css4',categoryList[1],'|2016.4.26'),
-new Article('js5',categoryList[2],'|2016.4.26'),
-new Article('js6',categoryList[2],'|2015.4.25'),
-new Article('js7',categoryList[2],'|2016.4.24'),
-new Article('js8',categoryList[2],'|2016.3.24'),
-new Article('js9',categoryList[2],'|2016.4.23'),
-new Article('js9',categoryList[2],'|2016.4.22'),
-new Article('js9',categoryList[2],'|2016.4.21'),
-new Article('js9',categoryList[2],'|2016.4.13'),
-new Article('js9',categoryList[2],'|2016.4.8'),
+new Article('闭合浮动',categoryList[1],'|2016.4.8','CSS/clearfix.html'),
 ];
 var pageNum=0;
 var startIndex=0;//在当前页码下,category在articleList中的起始位置
@@ -93,7 +79,7 @@ function generatorArticleList(category,titleNum){
 				break;
 			articleId='#article'+(i+1).toString();
 			$(articleId+' .title').text(articleList[startIndex].title);
-			$(articleId+' .title').attr('href','123');
+			$(articleId+' .title').attr('href',articleList[startIndex].url);
 			$(articleId+' .date').text(articleList[startIndex].date);
 			$(articleId+' .category').text(articleList[startIndex].category);
 			$(articleId).fadeIn(1000);
@@ -109,6 +95,7 @@ function generatorArticleList(category,titleNum){
 			{
 				articleId='#article'+(i+1).toString();
 				$(articleId+' .title').text(articleList[startIndex].title);
+				$(articleId+' .title').attr('href',articleList[startIndex].url);
 				$(articleId+' .date').text(articleList[startIndex].date);
 				$(articleId+' .category').text(articleList[startIndex].category);
 				$(articleId).fadeIn(1000);
@@ -162,7 +149,6 @@ $(document).ready(function(){
 		pageNum-=2;
 		var category=$('#theme').text();
 		startIndex=pageNum*titleNum;
-		alert(startIndex);
 		generatorArticleList(category,titleNum);
 	});
 	$('#next').click(function(){
