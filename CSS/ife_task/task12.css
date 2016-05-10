@@ -1,0 +1,106 @@
+.part1 th{
+  text-align: left;
+}
+.part1 thead th{
+  background-color: black;
+  color:white;
+}
+.part1 tbody tr:nth-child(even){
+  background-color: #efefef;
+
+}
+.part1 tbody tr:first-child,
+.part1 tbody tr:nth-child(2),
+.part1 tbody tr:nth-child(3){
+  color: red;
+  font-weight: bold;
+}
+
+.part2 input{
+  margin-top:10px;
+  width: 60px;
+  border: 1px solid #b1ffb1;
+  transition: width 1s;
+  -webkit-transition:width 1s;
+  -moz-transition:width 1s;
+  -o-transition:width 1s;
+}
+.part2 input:focus{
+  width: 200px;
+}
+.part3{
+  position: relative;
+  margin-top: 10px;
+  height: 150px;
+  width: 340px;
+}
+.part3 div{
+  position: absolute;
+  height: 150px;
+  width: 300px;
+  display: inline-block;
+  left:40px;
+}
+
+.back ul{
+  position: absolute;
+  margin: 0;
+  bottom: 0;
+  right:10px;
+  z-index: 4;
+}
+.back li{
+  display: inline-block;
+  list-style: none;
+  background-color: #efefef;
+  width: 20px;
+  height: 20px;
+    line-height: 20px;
+  text-align: center;
+  opacity: 0.5;
+}
+.back li a{
+  text-decoration: none;
+}
+.part3 #red{
+  background-color: red;
+}
+.part3 #blue{
+  background-color: blue;
+}
+.part3 #green{
+  background-color: green;
+}
+:target{
+  animation: change_color .8s;
+   -webkit-animation:change_color .8s;
+   -moz-animation:change_color .8s;
+    z-index: 2;
+
+}
+@keyframes change_color{
+  from{
+
+    left:-100px;
+  }
+  to{
+    left:40px;
+
+  }
+}
+@-webkit-keyframes change_color{
+  from{
+    left:-100px;
+  }
+  to{
+    left:40px;
+  }
+}
+@-moz-keyframes change_color{
+  from{
+    left:-100px;
+  }
+  to{
+    left:40px;
+  }
+}

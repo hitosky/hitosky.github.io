@@ -15,6 +15,12 @@ function Article(title,category,strDate,url){
 //所有文章,按日期存储
 var articleList=[
 new Article('闭合浮动',categoryList[1],'|2016.4.8','CSS/clearfix.html'),
+new Article('ife_task3',categoryList[1],'|2016.5.10','CSS/ife_task/task3.html'),
+new Article('ife_task4',categoryList[1],'|2016.5.10','CSS/ife_task/task4.html'),
+new Article('ife_task6',categoryList[1],'|2016.5.10','CSS/ife_task/task6.html'),
+new Article('ife_task8',categoryList[1],'|2016.5.10','CSS/ife_task/task8.html'),
+new Article('ife_task10',categoryList[1],'|2016.5.10','CSS/ife_task/task10.html'),
+new Article('ife_task12',categoryList[1],'|2016.5.10','CSS/ife_task/task12.html'),
 ];
 var pageNum=0;
 var startIndex=0;//在当前页码下,category在articleList中的起始位置
