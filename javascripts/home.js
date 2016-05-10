@@ -114,6 +114,7 @@ function generatorArticleList(category,titleNum){
 }
 $(document).ready(function(){
 	var titleNum=$('#article li').toArray().length;
+	sortByDate();
 	generatorArticleList('Home',titleNum);
 	$('#article').fadeIn(2000);
 	$('#Home').click(function(){
