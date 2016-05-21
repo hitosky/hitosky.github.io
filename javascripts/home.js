@@ -21,6 +21,18 @@ new Article('ife_task6',categoryList[1],'|2016.5.10','CSS/ife_task/task6.html'),
 new Article('ife_task8',categoryList[1],'|2016.5.10','CSS/ife_task/task8.html'),
 new Article('ife_task10',categoryList[1],'|2016.5.10','CSS/ife_task/task10.html'),
 new Article('ife_task12',categoryList[1],'|2016.5.10','CSS/ife_task/task12.html'),
+new Article('ife_task13',categoryList[2],'|2016.5.21','JS/ife_task/task13.html'),
+new Article('ife_task14',categoryList[2],'|2016.5.21','JS/ife_task/task14.html'),
+new Article('ife_task15',categoryList[2],'|2016.5.21','JS/ife_task/task15.html'),
+new Article('ife_task16',categoryList[2],'|2016.5.21','JS/ife_task/task16.html'),
+new Article('ife_task17',categoryList[2],'|2016.5.21','JS/ife_task/task17.html'),
+new Article('ife_task18',categoryList[2],'|2016.5.21','JS/ife_task/task18.html'),
+new Article('ife_task22',categoryList[2],'|2016.5.21','JS/ife_task/task22.html'),
+new Article('ife_task28',categoryList[2],'|2016.5.21','JS/ife_task/task28.html'),
+new Article('BFC块级格式上下文',categoryList[2],'|2016.5.21','JS/BFC块级格式上下文.html'),
+new Article('JS EC与VO',categoryList[2],'|2016.5.21','JS/JS EC与VO.html'),
+new Article('JS this的指向',categoryList[2],'|2016.5.21','JS/JS this的指向.html'),
+new Article('JS 原型prototype',categoryList[2],'|2016.5.21','JS/JS 原型prototype.html'),
 ];
 var pageNum=0;
 var startIndex=0;//在当前页码下,category在articleList中的起始位置

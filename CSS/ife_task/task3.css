@@ -1,5 +1,6 @@
 
 #content{
+	overflow: hidden;
 	padding: 20px;
 	border: 2px solid #999;
 	background-color: #eee;
@@ -21,8 +22,9 @@
 	padding: 20px;
 	box-sizing:border-box;
 	background-color: white;
-	margin-left: 200px;
-	margin-right: 120px;
+	overflow: hidden;
+	/*margin-left: 200px;
+	margin-right: 120px;*/
 }
 #main-right{
 	float:right;
