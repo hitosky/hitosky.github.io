@@ -1,0 +1,35 @@
+#content {
+  width: 600px;
+  height: 800px;
+  margin: 0 auto;
+}
+
+    #sort-choice {
+
+    }
+
+    #sort-canvas {
+      width: 100%;
+      height: 400px;
+      background-color: darkslategray;
+    }
+
+    #sort-btn {
+      width: 100%;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+        #sort-btn button {
+          width: 80px;
+          height: 40px;
+          margin-right: 20px;
+          font: 20px Georgia bold;
+          background-color: black;
+          color: white;
+          border-radius: 10px;
+        }
+
+        #sort-btn button:hover {
+          color: yellowgreen;
+        }
