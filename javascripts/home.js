@@ -4,13 +4,13 @@ var categoryList=[
 'CSS',
 'Javascript',
 'Algorithm'
-]
+];
 
 function Article(title,category,strDate,url){
 	this.title=title;
 	this.category=category;
 	this.date=strDate;
-	this.url=url
+	this.url=url;
 }
 //所有文章,按日期存储
 var articleList=[
@@ -34,7 +34,7 @@ new Article('JS EC与VO',categoryList[2],'|2016.5.21','JS/JS EC+VO.html'),
 new Article('JS this的指向',categoryList[2],'|2016.5.21','JS/JS this.html'),
 new Article('JS 原型prototype',categoryList[2],'|2016.5.21','JS/JS prototype.html'),
 new Article('常见8种排序',categoryList[3],'|2016.5.22','ALGORITHM/sort.html'),
-new Article('居中问题总结',categoryList[1],'|2016.6.7','CSS/css-center.html'),
+new Article('居中问题总结',categoryList[1],'|2016.6.11','CSS/css-center.html'),
 ];
 var pageNum=0;
 var startIndex=0;//在当前页码下,category在articleList中的起始位置
@@ -58,11 +58,11 @@ function sortByCty(category){
 //对article的date进行处理，便于排序
 function dateFormat(date){
 	var d=date.replace(/\|/,' ');
-	
+
 	var dd=d.split('.');
 	for(var i in dd){
 		dd[i]=parseInt(dd[i]);
-		
+
 	}
 	return dd;
 }
@@ -75,9 +75,12 @@ function sortByDate(){
 		{
 			if(d1[i]<d2[i])
 				return 1;
+			else if(d1[i]>d2[i])
+			return -1;
 		}
 		return -1;
 	});
+
 }
 //生成某一页article list ,先hide原先的article,然后再fadeIn
 function generatorArticleList(category,titleNum){
@@ -94,7 +97,7 @@ function generatorArticleList(category,titleNum){
 	{
 		for(i=0;i<titleNum;i++,startIndex++)
 		{
-			
+
 			if(startIndex>=articleList.length)
 				break;
 			articleId='#article'+(i+1).toString();
@@ -106,7 +109,7 @@ function generatorArticleList(category,titleNum){
 		}
 	}
 	//对于其他category
-	else{	
+	else{
 		for(i=0;i<titleNum;startIndex++)
 		{
 			if(startIndex>=articleList.length)
@@ -119,7 +122,7 @@ function generatorArticleList(category,titleNum){
 				$(articleId+' .date').text(articleList[startIndex].date);
 				$(articleId+' .category').text(articleList[startIndex].category);
 				$(articleId).fadeIn(1000);
-				i++;				
+				i++;
 			}
 		}
 	}
@@ -135,32 +138,35 @@ $(document).ready(function(){
 		$('#theme').text($('#Home').text());
 		pageNum=0;
 		startIndex=0;
-		sortByDate();
+		//sortByDate();
 		generatorArticleList('Home',titleNum);
 	});
 	$('#CSS').click(function(){
 		$('#theme').text($('#CSS').text());
 		pageNum=0;
 		startIndex=0;
-		sortByCty('CSS');
+		//sortByDate();
+		//sortByCty('CSS');
 		generatorArticleList('CSS',titleNum);
-		
-	})
+
+	});
 	$('#Javascript').click(function(){
 		$('#theme').text($('#Javascript').text());
 		var category=$('#theme').text();
-		pageNum=0;	
+		pageNum=0;
 		//startIndex=findIndex('Javascript');
 		startIndex=0;
-		sortByCty('Javascript');
+		//sortByDate();
+		//sortByCty('Javascript');
 		generatorArticleList('Javascript',titleNum);
-		
+
 	});
 	$('#Algorithm').click(function(){
 		$('#theme').text($('#Algorithm').text());
 		pageNum=0;
 		startIndex=0;
-		sortByCty('Algorithm');
+		//sortByDate();
+		//sortByCty('Algorithm');
 		generatorArticleList('Algorithm',titleNum);
 
 	});
@@ -175,9 +181,8 @@ $(document).ready(function(){
 	$('#next').click(function(){
 		if(startIndex>=articleList.length)
 			return;
-		var category=$('#theme').text();	
+		var category=$('#theme').text();
 		generatorArticleList(category,titleNum);
 	});
-	
-});
 
+});
