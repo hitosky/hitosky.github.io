@@ -34,6 +34,7 @@ new Article('JS EC与VO',categoryList[2],'|2016.5.21','JS/JS EC+VO.html'),
 new Article('JS this的指向',categoryList[2],'|2016.5.21','JS/JS this.html'),
 new Article('JS 原型prototype',categoryList[2],'|2016.5.21','JS/JS prototype.html'),
 new Article('常见8种排序',categoryList[3],'|2016.5.22','ALGORITHM/sort.html'),
+new Article('居中问题总结',categoryList[1],'|2016.6.7','CSS/css-center.html'),
 ];
 var pageNum=0;
 var startIndex=0;//在当前页码下,category在articleList中的起始位置
