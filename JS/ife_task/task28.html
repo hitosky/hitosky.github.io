@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel='stylesheet' type='text/css' href="task28.css"></link>
+  <script defer="defer" type='text/javascript' src='task28.js'></script>
+  <title>任务28:行星与飞船</title>
+</head>
+<body>
+  <div id='space'>
+    <div id='planet'></div>
+
+  </div>
+  <div id='state-board'>
+    <p>Airship State Table</p>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>飞船</th>
+          <th>动力系统</th>
+          <th>能源系统</th>
+          <th>当前飞行状态</th>
+          <th>剩余能耗</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+    <p>Communication Info:</p>
+  </div>
+  <fieldset id='ship-board'>
+    <legend>飞船类型</legend>
+    <label>动力系统选择：
+      <label><input type='radio'  name='dynamic-sys' value="advance">前进号（速率30px/s,能耗5%/s)</label>
+      <label><input type='radio'  name='dynamic-sys' value="pentium">奔腾号（速率50px/s,能耗7%/s)</label>
+      <label><input type='radio'  name='dynamic-sys' value="super">超越号（速率80px/s,能耗9%/s)</label>
+    </label>
+    <label>能源选择系统：
+      <label><input type='radio'  name='energy-sys'  value="strong">劲量型（补充能源速度2%/s）</label>
+      <label><input type='radio'   name='energy-sys' value="luminous">光能型（补充能源速度3%/s）</label>
+      <label><input type='radio'  name='energy-sys' value="perpetual">永久型（补充能源速度4%/s）</label>
+    </label>
+    <button id='add-ship'>创建新飞船</button>
+  </fieldset>
+  <fieldset id='command-board'>
+    <legend>指挥官命令</legend>
+  </fieldset>
+</body>
+</html>

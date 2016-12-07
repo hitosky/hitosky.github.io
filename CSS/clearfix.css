@@ -1,0 +1,54 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+#nav1{
+	width: 300px;
+	position: fixed;
+	
+	padding:5px;
+	font-size:100%; 
+	
+}
+xmp{
+	background-color: black;
+	color:white;
+}
+#nav2{
+	padding: 10px;
+	width: 400px;
+	margin: 0 auto;
+
+}
+#nav2>div{
+	padding: 5px;
+	clear:both;
+}
+#father2{
+	background-color: green;
+
+}
+#father2:after{
+	visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ".";
+    clear: both;
+    height: 0;
+}
+#father2 
+{
+	*zoom:1;
+}
+.leftchild{
+	float:left;
+	background-color: red;
+	width: 30%;
+	height: 100px;
+}
+.rightchild{
+	float:right;
+	background-color: blue;
+	width: 30%;
+	height: 100px;
+}

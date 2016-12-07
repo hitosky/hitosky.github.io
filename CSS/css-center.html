@@ -1,0 +1,269 @@
+<!doctype>
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<link rel="stylesheet" type="text/css" href='css-center.css'></link>
+	<title>居中问题总结</title>
+</head>
+<body>
+
+<div id='horizon-center' class='center'>
+	<h4>水平居中</h4>
+	<div class='inline-elements'>
+		<span>1.inline或inline-*元素</span>
+		<div class='html'>
+			<pre>
+HTML:
+&lt;nav&gt;
+&lt;a href="#"&gt;One&lt;/a&gt;
+&lt;a href="#">Two&lt;/a>
+&lt;a href="#">Three&lt;/a>
+&lt;/nav>
+			</pre>
+		</div>
+	<div class='css'>
+		<pre>
+CSS:
+nav{
+ text-align:center;
+}
+nav a {
+ text-decoration:none;
+}
+</pre>
+	</div>
+	<div class='result'>
+		<nav role='navigation' style='text-align:center;'>
+<a href="#">One</a>
+<a href="#">Two</a>
+<a href="#">Three</a>
+</nav>
+	</div>
+</div>
+<div class='block-elements'>
+	<span>2.单个块级元素</span>
+	<div class='html'>
+<pre>
+HTML:
+&lt;main >
+ &lt;div>
+ I am a block-level centered element.
+ &lt;/div>
+&lt;/main>
+</pre>
+	</div>
+	<div class='css'>
+		<pre>CSS:
+div{
+ margin:0 auto;
+}
+		</pre>
+	</div>
+	<div class='result'>
+		<main >
+			<div style="margin:0 auto;width:30%;height:50px;background:#000;color:#fff;">
+				I am a block-level centered element.
+			</div>
+		</main>
+	</div>
+</div>
+<div class="multiple-block-elements">
+	<span>3.多个块级元素</span>
+	<div class="html">
+		<pre>HTML:
+&lt;main >
+  &lt;div class="child1">
+    I am child1 block element;
+ &lt;/div>
+ &lt;div class="child2">
+    I am child2 block element;
+ &lt;/div>
+ &lt;div class="child3" >
+    I am child3 block element;
+ &lt;/div>
+&lt;/main>
+		</pre>
+	</div>
+	<div class="css">
+		<pre>CSS:
+main {
+  display:flex;
+  justify-content:center;
+}
+main div {
+  width:20%;
+  background:#000;
+}
+		</pre>
+	</div>
+	<div class="result">
+		<main style="display:flex;justify-content:center">
+			<div class='child1' style="margin-right:2px;width:20%;eight:50px;background:black;">
+				I am child1 block element;
+			</div>
+			<div class='child2' style="margin-right:2px;width:20%;eight:50px;background:black;">
+				I am child2 block element;
+			</div>
+			<div class='child3' style="margin-right:2px;width:20%;eight:50px;background:black;">
+				I am child3 block element;
+			</div>
+		</main>
+	</div>
+</div>
+</div>
+<div id='vertical-center' class='center'>
+	<h4>垂直居中</h4>
+	<div class='inline-elements'>
+		<span>1.inline或inline-*元素</span>
+		<div class='single-line'>
+			<span>1.1 单行</span>
+			<div class="html">
+<pre>HTML:
+&lt;main>
+  &lt;div >
+  I am a center line.
+  &lt;/div>
+&lt;/main>
+</pre>
+			</div>
+			<div class="css">
+				<pre>CSS:
+main div {
+  height:60px;
+  line-height:60px;
+  text-align:center;
+}
+
+				</pre>
+			</div>
+			<div class="result">
+		<main>
+			<div style="height:60px;line-height:60px;text-align:center;">
+				I am a center line.
+			</div>
+		</main>
+			</div>
+		</div>
+		<div class="multiple-lines">
+    <span>1.2多行</span>
+    <div class="use-flex">
+      <span>方案一:使用flex(同样适用于块级元素)</span>
+    <div class='html'>
+      <pre>HTML:
+&lt;div >
+ &lt;p>I'm vertically centered multiple lines of text in a flexbox container.&lt;/p>
+&lt;/div>
+</pre>
+    </div>
+    <div class='css'>
+  <pre>CSS:
+div {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+</pre>
+    </div>
+    <div class='result'>
+      <div style="display:flex;flex-direction:column;justify-content:center;
+      width:50%;height:140px;margin:0 auto;background:#000;">
+        <p>I'm vertically centered multiple lines of text in a flexbox container.</p>
+      </div>
+    </div>
+  </div>
+  <div class="use-ghost">
+    <span>方案二：使用"ghost"元素</span>
+  <div class='html'></div>
+  <div class='css'>
+<pre>CSS:
+  div {
+    position:relative;
+  }
+  div::before {
+    content:"";
+    display:inline-block;
+    height:100%;
+    width:1%;
+    vertical-align:middle;
+  }
+  div p{
+  display:inline-block;
+  width:200px;
+  vertical-align:center;
+  }
+</pre>
+  </div>
+  <div class='result'>
+    <div class="ghost-center" style="position:relative;background:#000;
+    width:50%;height:140px;margin:0 auto;">
+      <p style="display:inline-block;width:200px;vertical-align:middle;">
+        I'm vertically centered multiple lines of text in a flexbox container.</p>
+    </div>
+  </div>
+</div>
+		</div>
+	</div>
+  <div class="block-elements">
+    <span>2.块级元素</span>
+    <div class="known-height">
+      <span>2.1已知高度的块级元素</span>
+      <div class="html">
+        <pre>HTML:
+&lt;main >
+  &lt;div >
+    I am a block-level vertical centered element.
+  &lt;/div>
+&lt;/main>
+    </pre>
+      </div>
+      <div class="css">
+<pre>CSS:
+main{
+  position:relative;
+  height:150px;
+}
+main div{
+  position:absolute;
+  height:100px;
+  top:50%;
+  margin-top:-50px;
+}
+</pre>
+      </div>
+      <div class="result">
+        <main style="position:relative;height:150px;">
+          <div style="position:absolute;top:50%;margin:-50px auto;
+          height:100px;width:50%;background:#000;">
+            I am a block-level vertical centered element.
+          </div>
+        </main>
+      </div>
+    </div>
+    <div class="unknown-height">
+      <span>2.2未知高度的块级元素</span>
+      <div class="css">
+        <pre>CSS:
+main {
+  position:relative;
+  height:150px;
+}
+main div{
+ position:absolute;
+ top:50%;
+ transform:translateY(-50%);
+}
+        </pre>
+      </div>
+      <div class="result">
+      <main style="position:relative;height:150px;">
+        <div style="position:absolute;width:50%;top:50%;background:#000;
+        transform:translateY(-50%);">
+            I am a block-level vertical centered element with unknown height.
+        </div>
+      </main>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
