@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hell the Bug</title>
+  <title>Categories</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat Me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//">
+  <link rel="canonical" href="//categories/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -128,26 +128,32 @@
 
     <div class="content-wrapper">
       <div class="content-wrapper__inner">
-        <div class="main-post-list">
-
-  <ol class="post-list">
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/welcome-to-jekyll/" title="Welcome to Jekyll!">Welcome to Jekyll!</a></h2>
-        <p class="excerpt">You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve --watch</code>, which launches a web server and auto-regenerates your site when a file is updated.
-
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="8 Jan 2016" class="post-list__meta--date date">8 Jan 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#a">a</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-  </ol>
-
-  <hr class="post-list__divider ">
-
-  
+        <h2>Categories:</h2>
+<div class="categories"> 
+ 
+  <a href="#b">b</a>
 
 </div>
+
+<!-- iterate through all categories on the site --> 
+ 
+  <!-- for each tag, create an anchor by using the tag name as an id --> 
+  <div id="b">  
+    <h3> b </h3>  <!-- for create a heading --> 
+
+    <ul> <!-- create the list of posts -->
+      <!-- iterate through all the posts on the site --> 
+       
+        <!-- list only those which contain the current tag --> 
+         
+            <li>
+              <a href="//2016/welcome-to-jekyll/">Welcome to Jekyll!</a>
+            </li>
+        
+      
+    </ul>
+  </div>
+
       </div>
 
       <footer class="footer">
