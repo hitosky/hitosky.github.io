@@ -5,8 +5,8 @@
     <description>A Frontend Developer</description>
     <link>//</link>
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 08 Dec 2016 19:44:30 +0800</pubDate>
-    <lastBuildDate>Thu, 08 Dec 2016 19:44:30 +0800</lastBuildDate>
+    <pubDate>Fri, 09 Dec 2016 14:39:14 +0800</pubDate>
+    <lastBuildDate>Fri, 09 Dec 2016 14:39:14 +0800</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
     
       <item>
@@ -450,17 +450,20 @@ sudo mount –t vmhgfs .host:/ /mnt/hgfs&lt;/p&gt;
     
       <item>
         <title>JS this指向</title>
-        <description>&lt;p&gt;&lt;strong&gt;this常见的5种调用：&lt;/strong&gt;
-1. 全局范围内
-&lt;code class=&quot;highlighter-rouge&quot;&gt;this=global&lt;/code&gt;
-2. 函数调用
-&lt;code class=&quot;highlighter-rouge&quot;&gt;this=global&lt;/code&gt;
-1. 对象方法的调用
-&lt;code class=&quot;highlighter-rouge&quot;&gt;this=object of calling method&lt;/code&gt;
-1. 构造函数的调用
-&lt;code class=&quot;highlighter-rouge&quot;&gt;this=object of constructor&lt;/code&gt;
-1. 显式地设置this（如apply调用）
-&lt;code class=&quot;highlighter-rouge&quot;&gt;this=caller of apply&lt;/code&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;strong&gt;this常见的5种调用：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;全局范围内
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=global&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;函数调用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=global&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;对象方法的调用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=object of calling method&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;构造函数的调用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=object of constructor&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;显式地设置this（如apply调用）
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=caller of apply&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;&lt;em&gt;this值是在进入上下文的时候决定的，代码运行时其值不允许更改。&lt;/em&gt;&lt;/p&gt;
 

@@ -140,17 +140,20 @@
   </header>
 
   <section class="post">
-    <p><strong>this常见的5种调用：</strong>
-1. 全局范围内
-<code class="highlighter-rouge">this=global</code>
-2. 函数调用
-<code class="highlighter-rouge">this=global</code>
-1. 对象方法的调用
-<code class="highlighter-rouge">this=object of calling method</code>
-1. 构造函数的调用
-<code class="highlighter-rouge">this=object of constructor</code>
-1. 显式地设置this（如apply调用）
-<code class="highlighter-rouge">this=caller of apply</code></p>
+    <p><strong>this常见的5种调用：</strong></p>
+
+<ol>
+  <li>全局范围内
+<code class="highlighter-rouge">this=global</code></li>
+  <li>函数调用
+<code class="highlighter-rouge">this=global</code></li>
+  <li>对象方法的调用
+<code class="highlighter-rouge">this=object of calling method</code></li>
+  <li>构造函数的调用
+<code class="highlighter-rouge">this=object of constructor</code></li>
+  <li>显式地设置this（如apply调用）
+<code class="highlighter-rouge">this=caller of apply</code></li>
+</ol>
 
 <p><em>this值是在进入上下文的时候决定的，代码运行时其值不允许更改。</em></p>
 

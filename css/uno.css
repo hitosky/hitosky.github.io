@@ -20,7 +20,8 @@ body {
 	line-height: 1; }
 
 ol, ul {
-	list-style: none; }
+	list-style: none; 
+	color: cadetblue;}
 
 blockquote, q {
 	quotes: none; }
@@ -35,7 +36,15 @@ q:before, q:after {
 
 table {
 	border-collapse: collapse;
-	border-spacing: 0; }
+	border-spacing: 0; 
+	margin: 10px;}
+	table th {
+		background: #000;
+		color: #efefef;
+		border: 1px solid #efefef;
+		padding: 5px;}
+	table td {
+		border: 1px solid #e0e0e0;}
 
 body {
 	width: 100%;
@@ -1439,9 +1448,11 @@ i {
 	margin-top: 0;
 	margin-bottom: .2em;
 	font-size: 1.5em;
-	line-height: 1.3em; }
+	line-height: 1.3em; 
+	background: #333333;
+	border-radius: 4px;}
 	.post-list__post-title a {
-		color: #333333; }
+		color: #efefef; }
 		.post-list__post-title a:hover {
 			color: #b9301c; }
 
