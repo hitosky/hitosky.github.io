@@ -16,7 +16,6 @@ $(document).ready(function () {
   }
 
   if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
-    console.log('/');
     $('.panel-cover').addClass('panel-cover--collapsed')
   }
 

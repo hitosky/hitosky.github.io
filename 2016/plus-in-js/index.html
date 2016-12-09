@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>what is {} + {} in JS?</title>
+  <meta name="description" content="A Frontend Developer">
+  <meta name="author" content="If Life Cheat me">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hell the Bug">
+  <meta name="twitter:description" content="A Frontend Developer">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Hell the Bug">
+  <meta property="og:description" content="A Frontend Developer">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="//2016/plus-in-js/">
+  <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Hell the Bug">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Hell the Bug</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">A Frontend Developer</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Hell the Bug blog" class="blog-button">Blog</a></li>
+              <li class="navigation__item"><a href="/algorithm" title="link to Hell the Bug algorithm" class="blog-button">Algorithm</a></li>
+              <li class="navigation__item"><a href="/demo" title="link to Hell the Bug demo" class="blog-button">Demo</a></li>
+              <li class="navigation__item"><a href="/tool" title="link to Hell the Bug tool" class="blog-button">Tool</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+
+            
+
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/hitosky" title="hitosky on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:cpyjss@google.com" title="Email cpyjss@google.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span>
+    </div>
+    <h1 class="post-title">what is {} + {} in JS?</h1>
+  </header>
+
+  <section class="post">
+    <p>各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
+那么当进行<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>操作的时候，发生了什么呢？</p>
+
+<p>首先我们得知道，在js中，”+”操作遵循一个原则：<strong>只能对数字或者字符串进行相加，其他所有类型值都会先转换为数字或字符串再实现相加，数字与字符串相加，数字会转换为字符串</strong>。</p>
+
+<p>让我们回顾下js中类型：原始类型(primitives)和对象类型(objects)。原始类型又包括Undefined、Null、Boolean、Number以及String类型，除此5种类型之外的其他所有值类型属于对象类型，比如Array、Function等。</p>
+
+<p>由以上原则和类型可知，在js中，当进行”+”操作的时候，可能会发生3种类型转换：
+1. 对象类型→原始类型(toPrimitive)
+1. Undefined、Null、Boolean、String→Number(toNumber)
+1. Undefined、Null、Boolean、Number→String(toString)</p>
+
+<p><strong>toPrimitive(input,PreferredType)</strong>操作遵循以下几个步骤:
+如果PreferredType=Number则
+1. 如果input是原始类型，直接返回input.
+1. 否则，input即对象，调用valueOf()，如果结果是primitive，则直接返回，否则跳到3。
+1. 调用toString（），如果结果是primitive，直接返回结果，否则跳到4.
+1. 抛出类型异常TypeError</p>
+
+<p>如果PreferredType=String,上述步骤交换2和3步骤顺序。
+如果不指定PreferredType，则默认将Date类型实例转为String类型，其他对象类型转为Number。</p>
+
+<p><strong>toNumber(input):</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">input</th>
+      <th style="text-align: center">result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">undefined</td>
+      <td style="text-align: center">NaN</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">null</td>
+      <td style="text-align: center">+0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">boolean value</td>
+      <td style="text-align: center">true → 1，false →0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">number value</td>
+      <td style="text-align: center">不需转换</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">string value</td>
+      <td style="text-align: center">将字符串两端的空格、回车、换行、制表等符号去除，然后从头到尾遍历字符串，遍历到非数字字符停止，如果期间遍历到非数字字符，则返回NaN，否则返回遍历到的数字。’‘直接转为0。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>toString(input):</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">input</th>
+      <th style="text-align: right">result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">undefined</td>
+      <td style="text-align: right">“undefined”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">null</td>
+      <td style="text-align: right">“null”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">boolean value</td>
+      <td style="text-align: right">“true” or “false”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">number value</td>
+      <td style="text-align: right">直接在数字两端添加”</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">string value</td>
+      <td style="text-align: right">无需转换</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>改写valueOf与toString来观察toPrimitive过程：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="na">valueOf</span><span class="p">:</span><span class="nx">functiong</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"valueOf"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="p">{};</span>
+   <span class="p">},</span>
+   <span class="na">toString</span><span class="p">:</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"toString"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="p">{};</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>&gt; Number(obj)
+valueOf
+toString
+Uncaught TypeError:Cannot convert object to primitive value</p>
+
+<p>&gt; String(obj)
+toString
+valueOf
+Uncaught TypeError:Cannot convert object to primitive value</p>
+
+<p>讲了这么多，让我们回到<code class="highlighter-rouge">left+right</code>的计算上。我们可以通过以下步骤估计表达式的值：</p>
+
+<ol>
+  <li>left与right都需经过toPrimitive处理，toPrimitive默认将Date实例转为String，其他对象类型转为Number。</li>
+  <li>经过1以后，如果left与right至少有一个为String，则将left与right均转换为String再进行字符串连接并返回连接后的字符串。否则，left与right转为数字相加并返回相应的和。</li>
+</ol>
+
+<p>最后在讲<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>的结果前，先回顾下js中将其他类型转为Number的两种常用方法：<code class="highlighter-rouge">+o</code>与<code class="highlighter-rouge">Number(o)</code>。
+浏览器是如何解析{}+{}的呢？
+一般情况下，浏览器会将左边的{}解析为空代码块，而非空对象，此时{}+{}就等价于+{}，而+{}等于NaN。所以上述表达式返回NaN。
+同理{}+[]会得到0
+但是在node REPL的编译环境中，{}+{}左右两边边的{}则会解析成字符串，最后返回”[object Object][object Object]”。
+如果想让{}+{}得到字符串，比较好的做法是在两边加()，变成({}+{})</p>
+
+  </section>
+  
+</article>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2016 If Life Cheat me. All rights reserved.</span>
+</footer> 
+
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+    </div>
+  </body>
+</html>

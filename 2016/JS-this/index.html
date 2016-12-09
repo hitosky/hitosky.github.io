@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hell the Bug</title>
+  <title>JS this指向</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//">
+  <link rel="canonical" href="//2016/JS-this/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -131,65 +131,85 @@
 
     <div class="content-wrapper">
       <div class="content-wrapper__inner">
-        <div class="main-post-list">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span>
+    </div>
+    <h1 class="post-title">JS this指向</h1>
+  </header>
 
-  <ol class="post-list">
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/bfc/" title="BFC块级上下文">BFC块级上下文</a></h2>
-        <p class="excerpt">之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。
+  <section class="post">
+    <p><strong>this常见的5种调用：</strong>
+1. 全局范围内
+<code class="highlighter-rouge">this=global</code>
+2. 函数调用
+<code class="highlighter-rouge">this=global</code>
+1. 对象方法的调用
+<code class="highlighter-rouge">this=object of calling method</code>
+1. 构造函数的调用
+<code class="highlighter-rouge">this=object of constructor</code>
+1. 显式地设置this（如apply调用）
+<code class="highlighter-rouge">this=caller of apply</code></p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#CSS">CSS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/plus-in-js/" title="what is {} + {} in JS?">what is {} + {} in JS?</a></h2>
-        <p class="excerpt">各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
-那么当进行<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>操作的时候，发生了什么呢？
+<p><em>this值是在进入上下文的时候决定的，代码运行时其值不允许更改。</em></p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/browser-parse-hjc/" title="浏览器解析Html,Js,Url">浏览器解析Html,Js,Url</a></h2>
-        <p class="excerpt"><h2 id="html">HTML解析</h2>
-首先明白三个概念：
-
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/Ubuntu-mysql5.5-chinese-messy-code/" title="Ubuntu下 mysql 5.5版本解决存放中文乱码问题">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</a></h2>
-        <p class="excerpt"><h2 id="mysql">进入mysql后相关命令：</h2>
-
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-  </ol>
-
-  <hr class="post-list__divider ">
-
-  
-      <nav class="pagination" role="navigation">
-  
-
-  <span class="pagination__page-number">Page 1 of 3</span>
-
-  
-    <a rel="next" class="posts older btn small" href="/page2/">Older Posts →</a>
-  
-</nav>
-  
-
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">activeExecutionContext</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">VO</span><span class="p">:</span> <span class="p">{...},</span>
+  <span class="na">this</span><span class="p">:</span> <span class="nx">thisValue</span>
+<span class="p">};</span>
+</code></pre>
 </div>
+
+<p><strong>普通的函数调用中，this的值由调用该函数的父作用域（调用表达式）决定。</strong></p>
+
+<blockquote>
+  <p>When a function of an object was called, the object will be passed into the execution context as this value</p>
+</blockquote>
+
+<p>会引起this改变的调用表达式也称<strong>引用类型</strong>，其形式类似：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">valueOfReferenceType</span><span class="o">=</span><span class="p">{</span>
+  <span class="na">base</span><span class="p">:</span><span class="o">&lt;</span><span class="nx">base</span> <span class="nx">object</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">propertyName</span><span class="p">:</span><span class="o">&lt;</span><span class="nx">property</span> <span class="nx">name</span><span class="o">&gt;</span>
+<span class="p">};</span>
+
+<span class="k">this</span><span class="o">=</span><span class="nx">valueOfReferenceType</span><span class="p">[</span><span class="s1">'base'</span><span class="p">];</span>
+</code></pre>
+</div>
+
+<p>引用类型的值只在两种情况下存在：</p>
+
+<ol>
+  <li>处理标识符：变量名，函数名，函数参数名，全局对象属性名</li>
+  <li>属性访问器：.运算符与[]运算符</li>
+</ol>
+
+<p>如果(…)左边是一个引用类型，那么<code class="highlighter-rouge">this=valueOfReferenceType['base']</code>。其他情况下this的值一直是null,由于<code class="highlighter-rouge">this=null</code>无意义，所以this会被隐式转换为global。ES5严格模式下，<code class="highlighter-rouge">this=undefined</code></p>
+
+<p><strong>确定this的值关键是得确定当前上下文的调用者</strong></p>
+
+<p>如果想快速判断this的指向，可以参考知乎某位大虾提出的在ES5下面的this判断流程：</p>
+
+<ol>
+  <li>函数是否是new调用？若是，则this指向新对象</li>
+  <li>函数是否是bind方法返回的？若是，则this指向指定对象。</li>
+  <li>函数是否通过apply/call调用？若是，则this指向指定对象。</li>
+  <li>是否作为对象的方法调用？若是，则this指向该对象</li>
+  <li>this指向全局</li>
+</ol>
+
+<p>参考资料：
+- <a href="http://weizhifeng.net/chapter-3-this.html">水木情书</a>
+- <a href="http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html">阮一峰</a>
+- <a href="http://www.jb51.net/onlineread/JavaScript-Garden-CN/#function.this">js秘密花园</a></p>
+
+  </section>
+  
+</article>
+
+
+
       </div>
 
       <footer class="footer">

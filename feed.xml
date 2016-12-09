@@ -5,37 +5,886 @@
     <description>A Frontend Developer</description>
     <link>//</link>
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 07 Dec 2016 22:24:10 +0800</pubDate>
-    <lastBuildDate>Wed, 07 Dec 2016 22:24:10 +0800</lastBuildDate>
+    <pubDate>Thu, 08 Dec 2016 19:44:30 +0800</pubDate>
+    <lastBuildDate>Thu, 08 Dec 2016 19:44:30 +0800</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
     
       <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve --watch&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+        <title>BFC块级上下文</title>
+        <description>&lt;p&gt;之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。&lt;/p&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;网页在浏览器器中通过CSS布局的基本元素是&lt;strong&gt;盒模型Box&lt;/strong&gt;，浏览器在渲染Box的时候，是根据其&lt;strong&gt;格式化上下文FC&lt;/strong&gt;来进行渲染的，换句话说，就是Box内部元素位置如何排列以及各元素之间的关系与作用均由这个Box的FC所决定。这种做法有点类似js中的&lt;strong&gt;执行上下文EC&lt;/strong&gt;来决定变量和对象的取值。
+### FC的分类 ###
+在CSS2.1中格式化上下文只有&lt;code class=&quot;highlighter-rouge&quot;&gt;BFC&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;IFC&lt;/code&gt;（内联格式化上下文）, CSS3中还增加了&lt;code class=&quot;highlighter-rouge&quot;&gt;GFC&lt;/code&gt;（网格布局格式化上下文）和&lt;code class=&quot;highlighter-rouge&quot;&gt;FFC&lt;/code&gt;（自适应格式化上下文）。
+###FC的决定因素###
+FC类别主要由Box的display所决定，其他属性如float、position、overflow也能影响FC。
+### 哪些Box能形成BFC ###
+以下条件至少满足其一就能形成BFC
+1. float 的值不为 none
+1. position 的值为 fixed 或 absolute
+1. display 的值为 table-cell、table-caption、inline-block、flex 或 inline-flex
+1. overflow 的值不为 visiable
+2. fieldset元素&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;h3 id=&quot;bfc&quot;&gt;BFC内部元素特性&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;内部Box会在垂直方向，从顶部开始一个接一个地放置&lt;/li&gt;
+  &lt;li&gt;Box垂直方向的距离由margin属性决定，属于同一个BFC的两个相邻Box的垂直margin会发生叠加&lt;/li&gt;
+  &lt;li&gt;对于从左往右顺序排列，每个元素的margin box的左边与包含块border box的左边重合；对于从右往左顺序则box右边重合。对于line box与浮动元素之间可能会产生文字环绕现象&lt;/li&gt;
+  &lt;li&gt;BFC的区域不会与BFC外部的float box叠加&lt;/li&gt;
+  &lt;li&gt;BFC内部子元素与BFC外部元素互相独立，互不影响&lt;/li&gt;
+  &lt;li&gt;计算BFC高度时，浮动元素也参与计算&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;
+&lt;h3 id=&quot;bfc-1&quot;&gt;BFC带来的问题&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;外边距折叠问题&lt;/li&gt;
+  &lt;li&gt;文字环绕&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bfc-2&quot;&gt;BFC特性能为我们做什么&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;闭合浮动&lt;/li&gt;
+  &lt;li&gt;多列页面布局&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bfc-3&quot;&gt;如何解决BFC特性对内部元素带来的‘负面’影响&lt;/h3&gt;
+&lt;p&gt;基本思路就是&lt;strong&gt;将一个BFC中的内容，放到不同的BFC中&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/bfc/</link>
+        <guid isPermaLink="true">//2016/bfc/</guid>
+        
+        <category>CSS</category>
+        
+        
+        <category>CSS</category>
+        
+      </item>
+    
+      <item>
+        <title>what is {} + {} in JS?</title>
+        <description>&lt;p&gt;各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
+那么当进行&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;操作的时候，发生了什么呢？&lt;/p&gt;
+
+&lt;p&gt;首先我们得知道，在js中，”+”操作遵循一个原则：&lt;strong&gt;只能对数字或者字符串进行相加，其他所有类型值都会先转换为数字或字符串再实现相加，数字与字符串相加，数字会转换为字符串&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;让我们回顾下js中类型：原始类型(primitives)和对象类型(objects)。原始类型又包括Undefined、Null、Boolean、Number以及String类型，除此5种类型之外的其他所有值类型属于对象类型，比如Array、Function等。&lt;/p&gt;
+
+&lt;p&gt;由以上原则和类型可知，在js中，当进行”+”操作的时候，可能会发生3种类型转换：
+1. 对象类型→原始类型(toPrimitive)
+1. Undefined、Null、Boolean、String→Number(toNumber)
+1. Undefined、Null、Boolean、Number→String(toString)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;toPrimitive(input,PreferredType)&lt;/strong&gt;操作遵循以下几个步骤:
+如果PreferredType=Number则
+1. 如果input是原始类型，直接返回input.
+1. 否则，input即对象，调用valueOf()，如果结果是primitive，则直接返回，否则跳到3。
+1. 调用toString（），如果结果是primitive，直接返回结果，否则跳到4.
+1. 抛出类型异常TypeError&lt;/p&gt;
+
+&lt;p&gt;如果PreferredType=String,上述步骤交换2和3步骤顺序。
+如果不指定PreferredType，则默认将Date类型实例转为String类型，其他对象类型转为Number。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;toNumber(input):&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;input&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;result&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;undefined&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;null&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;+0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;boolean value&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;true → 1，false →0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;number value&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;不需转换&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;string value&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;将字符串两端的空格、回车、换行、制表等符号去除，然后从头到尾遍历字符串，遍历到非数字字符停止，如果期间遍历到非数字字符，则返回NaN，否则返回遍历到的数字。’‘直接转为0。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;toString(input):&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;input&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;result&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;undefined&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;“undefined”&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;null&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;“null”&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;boolean value&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;“true” or “false”&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;number value&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;直接在数字两端添加”&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;string value&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;无需转换&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;改写valueOf与toString来观察toPrimitive过程：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;na&quot;&gt;valueOf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;functiong&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;valueOf&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+   &lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;toString&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&amp;gt; Number(obj)
+valueOf
+toString
+Uncaught TypeError:Cannot convert object to primitive value&lt;/p&gt;
+
+&lt;p&gt;&amp;gt; String(obj)
+toString
+valueOf
+Uncaught TypeError:Cannot convert object to primitive value&lt;/p&gt;
+
+&lt;p&gt;讲了这么多，让我们回到&lt;code class=&quot;highlighter-rouge&quot;&gt;left+right&lt;/code&gt;的计算上。我们可以通过以下步骤估计表达式的值：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;left与right都需经过toPrimitive处理，toPrimitive默认将Date实例转为String，其他对象类型转为Number。&lt;/li&gt;
+  &lt;li&gt;经过1以后，如果left与right至少有一个为String，则将left与right均转换为String再进行字符串连接并返回连接后的字符串。否则，left与right转为数字相加并返回相应的和。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;最后在讲&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;的结果前，先回顾下js中将其他类型转为Number的两种常用方法：&lt;code class=&quot;highlighter-rouge&quot;&gt;+o&lt;/code&gt;与&lt;code class=&quot;highlighter-rouge&quot;&gt;Number(o)&lt;/code&gt;。
+浏览器是如何解析{}+{}的呢？
+一般情况下，浏览器会将左边的{}解析为空代码块，而非空对象，此时{}+{}就等价于+{}，而+{}等于NaN。所以上述表达式返回NaN。
+同理{}+[]会得到0
+但是在node REPL的编译环境中，{}+{}左右两边边的{}则会解析成字符串，最后返回”[object Object][object Object]”。
+如果想让{}+{}得到字符串，比较好的做法是在两边加()，变成({}+{})&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/plus-in-js/</link>
+        <guid isPermaLink="true">//2016/plus-in-js/</guid>
+        
+        <category>JS</category>
+        
+        
+        <category>JS</category>
+        
+      </item>
+    
+      <item>
+        <title>浏览器解析Html,Js,Url</title>
+        <description>&lt;h2 id=&quot;html&quot;&gt;HTML解析&lt;/h2&gt;
+&lt;p&gt;首先明白三个概念：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;字符实体&lt;/strong&gt;：
+字符实体是一个转义序列，它定义了无法在文本内容中输入的单个字符或符号，一般以&amp;amp;开头，后接预定义的实体名称，或是#与十进制数。如’&amp;lt;‘的字符实体名称为’&amp;amp;lt’，实体编号为’&amp;amp;#60’。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;HTML字符实体&lt;/strong&gt;
+ 就像程序语言的关键字一样，HTML字符实体是浏览器为了解析html状态而预留的保留符号，常见的有’&amp;lt;‘与’&amp;gt;‘。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;字符引用&lt;/strong&gt;
+字符引用又分为‘&lt;strong&gt;字符值引用&lt;/strong&gt;’和‘&lt;strong&gt;字符实体引用&lt;/strong&gt;’,字符引用是为了告诉浏览器，字符实体的转义序列有多长，一般用’;’来标志结束，如’&amp;lt;‘的字符值引用为’&amp;amp;#60 ;’，字符实体引用为’&amp;amp;#lt ;’&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;HTML解析器作为一个状态机，从输入流中获取字符并按照转换规则转换到另一种状态。解析过程中任何时候，只要遇到’&amp;lt;’符号（后面不跟’/’）就会进入’tag open state’,然后转到’tag name state’,然后转到’before attribute name state’….最后进入’data state’,并释放当前标签的token。
+以&amp;lt;div&amp;gt;为例：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;输入流&lt;/th&gt;
+      &lt;th&gt;解析状态(从上至下)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;开始&lt;/td&gt;
+      &lt;td&gt;tag close state&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;lt;&lt;/td&gt;
+      &lt;td&gt;tag open state&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;d&lt;/td&gt;
+      &lt;td&gt;tag name state&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;i&lt;/td&gt;
+      &lt;td&gt;before attribute name state&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;v&lt;/td&gt;
+      &lt;td&gt;before attribute name state&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;gt;&lt;/td&gt;
+      &lt;td&gt;data state,release token&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&amp;lt;/div&lt;/td&gt;
+      &lt;td&gt;tag close state&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;‘&amp;lt;’与‘&amp;gt;’是浏览器解析html状态的重要标志，或者说解析状态的迁移条件是遇到’&amp;lt;‘或’&amp;gt;’ , ‘&amp;amp;lt’或者’&amp;amp;gt’虽然会被解码成’&amp;lt;’或’&amp;gt;’,却不会被浏览器当成是状态转移的条件。它们只会被当成用户输入的‘数据’&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;浏览器对于‘字符引用’的解析又分为三种情况:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;data state中的字符引用&lt;/li&gt;
+  &lt;li&gt;RCData state中的字符引用&lt;/li&gt;
+  &lt;li&gt;属性值状态中的字符引用&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;情况1：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&lt;/span&gt;这里的字符引用属于data state&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;情况2：
+这其实也属于1中的特殊情况，只是标签名为textarea、title、code、pre等为了让用户输入文本内容的标签。&lt;strong&gt;在这种状态的如果浏览器遇到’&amp;lt;’，并不会进入tap open state，而是进入了‘RCData小于号状态’，如果’&amp;lt;’后面不跟’/’符号，那么会重新进入’RCData state’。因此在这些标签中创建&amp;lt;script&amp;gt;标签，脚本不会执行。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;情况3：
+标签中内嵌的属性值&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;总结下：html解析状态根据’&amp;lt;’与’&amp;lt;/&amp;gt;’来改变，要让&amp;lt;script&amp;gt;中脚本执行，前提条件是能使解析状态达到data state&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;url&quot;&gt;URL解析&lt;/h2&gt;
+
+&lt;p&gt;URL解析也是一个状态机模型，从输入流中进来的字符可以引导URL解析器转换到不同状态。
+但是URL解析的字符必须是ASCII字母，不然会进入“无类型”状态，也就是说如果对URL协议中字符进行任何编码操作，解析器就无法对它进行正确的解码。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%6a%61%76%61%73%63%72%69%70%74:%61%6c%65%72%74%28%31%29&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;click me&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这段代码本义是为了执行动作：&lt;code class=&quot;highlighter-rouge&quot;&gt;javascript:alert(1)&lt;/code&gt; ,但是由于进行了unicode编码，解析器无法对其进行解码。
+同理&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript%3aalert(1)&amp;gt;click me&amp;lt;/a&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这段代码也无法执行对应的js动作，因为’%3a’无法被url解析器解析成’:’。
+再看这段代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&amp;amp;#x6a;&amp;amp;#x61;&amp;amp;#x76;&amp;amp;#x61;&amp;amp;#x73;&amp;amp;#x63;&amp;amp;#x72;&amp;amp;#x69;&amp;amp;#x70;&amp;amp;#x74;:%61%6c%65%72%74%28%32%29&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;click me&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这段代码能正确执行相应的js动作，为什么？
+对于整个html文档来说，浏览器解析时候通常先用html解析器去解析，所以上面的代码会现在浏览器html解析器中解析，然后交由url解析器。经过html解析器解析后的相应代码就变为&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript:%61%6c%65%72%74%28%32%29&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;click me&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;当url解析器看见&lt;code class=&quot;highlighter-rouge&quot;&gt;javascript:&lt;/code&gt;的时候，会把代码交由javascript解析器去解析，所以上面的代码最终被解析成&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;javascript:alert(1)&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;click me&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;javascript&quot;&gt;javascript解析&lt;/h2&gt;
+
+&lt;p&gt;javascript解析器不同于html解析器，&amp;lt;script&amp;amp;gt标签有个特殊的属性：&lt;strong&gt;在它内部的字符引用不会被解析和解码。&lt;/strong&gt;
+下面的代码不会被执行&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;97&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;108&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;114&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;116&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;57&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;41&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;59&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;javascript解析器会对类似”\uXXXX”unicode编码的字符进行解析，但是也分情况。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;字符串中出现”\uXXXX”&lt;/li&gt;
+  &lt;li&gt;标识符中出现”\uXXXX”&lt;/li&gt;
+  &lt;li&gt;控制字符中出现”\uXXXX”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;情况1：
+当Unicode转义序列存在于字符串中时，它只会被解释为正规字符，而不是单引号，双引号或者换行符这些能够打破字符串上下文的字符。这项内容清楚地写在ECMAScript中。因此，&lt;strong&gt;Unicode转义序列将永远不会破环字符串上下文，因为它们只能被解释成字符串常量。&lt;/strong&gt;
+如下代码的”\u000a”会被解析成”\n”&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;1\u000a&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;情况2：
+当Unicode转义序列出现在标识符名称中时，它会被解码并解释为标识符名称的一部分,例如函数名，属性名等。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;u0061&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;u006c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;u0065&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;u0072&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;u0074&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;上面的这段代码能被js解析器解析成&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;并且成功执行。&lt;/p&gt;
+
+&lt;p&gt;情况3：
+这里说的控制字符是指单引号，双引号，圆括号，花括号等用来控制程序进行的字符，类似于html字符实体与一般字符实体的区别，”\uXXXX”无法取代相应控制字符的角色作用。&lt;/p&gt;
+
+&lt;p&gt;js解析器对于上面三种情况，总结下就是：
+&lt;strong&gt;Unicode转义序列只有在标识符名称里不被当作字符串，也只有在标识符名称里的编码字符能够被正常的解析。&lt;/strong&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/browser-parse-hjc/</link>
+        <guid isPermaLink="true">//2016/browser-parse-hjc/</guid>
+        
+        <category>HTML</category>
+        
+        
+        <category>HTMl</category>
+        
+      </item>
+    
+      <item>
+        <title>Ubuntu下 mysql 5.5版本解决存放中文乱码问题</title>
+        <description>&lt;h2 id=&quot;mysql&quot;&gt;进入mysql后相关命令：&lt;/h2&gt;
+
+&lt;p&gt;1.查看当前数据库中字符编码形式：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;show variables like &#39;character%&#39;;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.查看某个数据表中字符集编码：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;show create table {表名};&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3.更改数据库编码：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;alter database {数据库名} default character set {编码方式(如utf8)} collate {与编码相应的字符比较规则}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;4.更改数据表编码：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;alter table {表名} convert to character set {编码方式};&lt;/code&gt;
+或者
+&lt;code class=&quot;highlighter-rouge&quot;&gt;alter table {表名} default character set {编码方式};&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;5.更改表中某一列的编码：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;alter table {表名} change {列名} {列名}  character set {编码方式};&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;如何做到中文不乱码？&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;做到2个一致：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;1.database中编码方式，除去character_set_filesystem和character_sets_dir，其他character_set_*的值要一致：&lt;/p&gt;
+
+&lt;p&gt;为了达成这个一致，需要两个步骤：&lt;/p&gt;
+
+&lt;p&gt;(1) 修改mysql的配置文件（ubuntu 下是/etc/mysql/my.cnf）:
+在[client]于[mysql]下，插入语句：&lt;code class=&quot;highlighter-rouge&quot;&gt;default-character-set={编码方式}&lt;/code&gt;
+在[mysqld]下，插入语句:&lt;code class=&quot;highlighter-rouge&quot;&gt;character-set-server={编码方式}&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;(2) 执行上述命令3。&lt;/p&gt;
+
+&lt;p&gt;2.表中字符集编码与1中database的编码一致：分别执行命令4与5。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/Ubuntu-mysql5.5-chinese-messy-code/</link>
+        <guid isPermaLink="true">//2016/Ubuntu-mysql5.5-chinese-messy-code/</guid>
+        
+        <category>mysql</category>
+        
+        <category>乱码</category>
+        
+        
+        <category>Mysql</category>
+        
+      </item>
+    
+      <item>
+        <title>ubuntu与windows常见运维</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;1.主机与虚拟机通信&lt;/h2&gt;
+&lt;p&gt;虚拟机安装ssh，打开22端口，通过NAT模式设置网络，主机通过winscp或者putty访问虚拟机&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;2.主机与虚拟机共享文件夹&lt;/h2&gt;
+
+&lt;p&gt;虚拟机（重新）安装vmware tools，然后安装open-vm-dkms，在虚拟机VM-&amp;gt;Settings-&amp;gt;Options-&amp;gt;Shared Folders下设置主机共享文件夹，完事后虚拟机终端输入命令：
+sudo mount –t vmhgfs .host:/ /mnt/hgfs&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 08 Jan 2016 23:04:23 +0800</pubDate>
-        <link>//2016/welcome-to-jekyll/</link>
-        <guid isPermaLink="true">//2016/welcome-to-jekyll/</guid>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/Ubuntu-Windows-maintain/</link>
+        <guid isPermaLink="true">//2016/Ubuntu-Windows-maintain/</guid>
         
-        <category>a</category>
+        <category>Other</category>
+        
+        <category>运维</category>
         
         
-        <category>b</category>
+        <category>Other</category>
+        
+      </item>
+    
+      <item>
+        <title>JS this指向</title>
+        <description>&lt;p&gt;&lt;strong&gt;this常见的5种调用：&lt;/strong&gt;
+1. 全局范围内
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=global&lt;/code&gt;
+2. 函数调用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=global&lt;/code&gt;
+1. 对象方法的调用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=object of calling method&lt;/code&gt;
+1. 构造函数的调用
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=object of constructor&lt;/code&gt;
+1. 显式地设置this（如apply调用）
+&lt;code class=&quot;highlighter-rouge&quot;&gt;this=caller of apply&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;this值是在进入上下文的时候决定的，代码运行时其值不允许更改。&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;activeExecutionContext&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;VO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{...},&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;thisValue&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;普通的函数调用中，this的值由调用该函数的父作用域（调用表达式）决定。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;When a function of an object was called, the object will be passed into the execution context as this value&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;会引起this改变的调用表达式也称&lt;strong&gt;引用类型&lt;/strong&gt;，其形式类似：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;valueOfReferenceType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;base&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;propertyName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;valueOfReferenceType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;base&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;引用类型的值只在两种情况下存在：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;处理标识符：变量名，函数名，函数参数名，全局对象属性名&lt;/li&gt;
+  &lt;li&gt;属性访问器：.运算符与[]运算符&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;如果(…)左边是一个引用类型，那么&lt;code class=&quot;highlighter-rouge&quot;&gt;this=valueOfReferenceType[&#39;base&#39;]&lt;/code&gt;。其他情况下this的值一直是null,由于&lt;code class=&quot;highlighter-rouge&quot;&gt;this=null&lt;/code&gt;无意义，所以this会被隐式转换为global。ES5严格模式下，&lt;code class=&quot;highlighter-rouge&quot;&gt;this=undefined&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;确定this的值关键是得确定当前上下文的调用者&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果想快速判断this的指向，可以参考知乎某位大虾提出的在ES5下面的this判断流程：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;函数是否是new调用？若是，则this指向新对象&lt;/li&gt;
+  &lt;li&gt;函数是否是bind方法返回的？若是，则this指向指定对象。&lt;/li&gt;
+  &lt;li&gt;函数是否通过apply/call调用？若是，则this指向指定对象。&lt;/li&gt;
+  &lt;li&gt;是否作为对象的方法调用？若是，则this指向该对象&lt;/li&gt;
+  &lt;li&gt;this指向全局&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;参考资料：
+- &lt;a href=&quot;http://weizhifeng.net/chapter-3-this.html&quot;&gt;水木情书&lt;/a&gt;
+- &lt;a href=&quot;http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html&quot;&gt;阮一峰&lt;/a&gt;
+- &lt;a href=&quot;http://www.jb51.net/onlineread/JavaScript-Garden-CN/#function.this&quot;&gt;js秘密花园&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/JS-this/</link>
+        <guid isPermaLink="true">//2016/JS-this/</guid>
+        
+        <category>JS</category>
+        
+        
+        <category>JS</category>
+        
+      </item>
+    
+      <item>
+        <title>JS 原型prototype探究</title>
+        <description>&lt;p&gt;JS中原型对象的存在可以方便实现‘面向对象编程’（封装、继承、聚集与多态）。对象属性的查找可以通过原型链(prototype chain)。
+&amp;gt; 原型链是一个用来实现继承和共享属性的有限对象链。&lt;/p&gt;
+
+&lt;p&gt;对于JS对象，每个变量都包含有__proto__属性，但只有函数变量与内建对象有prototype属性。__proto__属性作为非标准属性，一般是隐藏的；而prototype属性则是显式的，用户可以存取的。内置函数对象的prototype属性及其引用的原型对象默认由js引擎构造，如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//函数变量&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){}&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Object{}&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//function()&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//内建对象&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Array[]&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Number&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Boolean&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//funciton() function() function()&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; 
+&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//其他变量&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//undefined&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//f.prototype--&amp;gt;Object{}&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; 
+&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//undefined&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proro__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Array.prototype--&amp;gt;Array[]&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; 
+&lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//undefined&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__proto__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Object{c:1}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;通过原型链查找某一属性是否存在，其实是根据__proto__属性，而非prototype属性。&lt;/strong&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;var x=new f();&lt;/code&gt;发生了什么？&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;创建一个空对象object&lt;/li&gt;
+  &lt;li&gt;空对象的__proto__属性设置为f.prototype属性值，即Object{}；空对象的constructor属性设置为f.prototype.constructor属性值，即function Function()。&lt;/li&gt;
+  &lt;li&gt;将空对象绑定到构造器上，类似construtor.call(x,parameters)。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;参考资料：&lt;/strong&gt;
+- &lt;a href=&quot;http://weizhifeng.net/javascript-the-core.html&quot;&gt;水木情书&lt;/a&gt;
+- &lt;a href=&quot;http://bonsaiden.github.io/JavaScript-Garden/zh/#object.prototype&quot;&gt;js秘密花园&lt;/a&gt;
+- &lt;a href=&quot;openwares.net/js/javascript_prototype_chain.html&quot;&gt;JavaScript原型链浅析&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/JS-prototype/</link>
+        <guid isPermaLink="true">//2016/JS-prototype/</guid>
+        
+        <category>JS</category>
+        
+        <category>prototype</category>
+        
+        
+        <category>JS</category>
+        
+      </item>
+    
+      <item>
+        <title>JS变量对象与执行上下文</title>
+        <description>&lt;h2 id=&quot;execution-context&quot;&gt;执行上下文(execution context)&lt;/h2&gt;
+&lt;p&gt;JS在确定作用域链(&lt;code class=&quot;highlighter-rouge&quot;&gt;scope link&lt;/code&gt;)与原型链(&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype link&lt;/code&gt;)的过程中需要明确当前环境的执行上下文。&lt;br /&gt;
+JS在执行期间会产生一个栈，用以存放代码运行过程中产生的执行上下文。其结构类似于：&lt;br /&gt;
+    &lt;code class=&quot;highlighter-rouge&quot;&gt;ECStack=[];&lt;/code&gt;&lt;br /&gt;
+在每次进入一个函数(包括递归调用、构造函数与eval函数)的时候，会把相应的执行上下文压入&lt;code class=&quot;highlighter-rouge&quot;&gt;ECStack&lt;/code&gt;，在代码运行完毕后会执行上下文会被弹出栈，其第一个元素就是当前活跃的上下文&lt;code class=&quot;highlighter-rouge&quot;&gt;activeContext&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;全局代码&lt;/h3&gt;
+
+&lt;p&gt;在初始化阶段（程序启动），&lt;code class=&quot;highlighter-rouge&quot;&gt;ECStack&lt;/code&gt;看起来像这样&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;ECStack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;  
+ &lt;span class=&quot;nx&quot;&gt;globalContext&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//全局上下文   &lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;全局代码不包含在任何函数中。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;函数代码&lt;/h3&gt;
+
+&lt;p&gt;在进入函数代码的时候，会产生新的执行上下文并将其压入&lt;code class=&quot;highlighter-rouge&quot;&gt;ECStack&lt;/code&gt;中。
+比如下面的例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;foo&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//当运行到foo()的时候&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ECStack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;functionContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;globalContext&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//当foo()执行完后&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ECStack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;globalContext&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;functionContext弹出一般有两种可能：
+1.函数返回
+2.抛出异常却没有被捕获&lt;/p&gt;
+
+&lt;h3 id=&quot;eval&quot;&gt;eval代码&lt;/h3&gt;
+
+&lt;p&gt;eval代码在被调用的过程中，不仅会产生evalContext，还会产生调用它的callingContext。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;var a=10&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt;/*
+ECStack=[
+  {context:evalContext,
+  callingContext:globalContext},
+  globalContext
+]
+*/&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;var y=10&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})()&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt;/*ECStack=[
+  {context:evalContext,
+  callingContext:&amp;lt;foo&amp;gt;functionContext},
+  &amp;lt;foo&amp;gt;functionContext
+]*/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;参考资料：&lt;/h4&gt;
+&lt;p&gt;中文翻译：&lt;a href=&quot;http://http://weizhifeng.net/chapter-1-execution-contexts.html&quot;&gt;水木情书&lt;/a&gt;
+&lt;a href=&quot;http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/&quot;&gt;英文原文&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;variable-object&quot;&gt;变量对象(variable object)&lt;/h2&gt;
+&lt;p&gt;JS会根据当前执行上下文，生成一个属性，叫做变量对象(variable object,简称VO),它存储了
+- 变量（var,变量声明）
+- 函数声明（function declaration,简称FD）
+- 函数形参&lt;/p&gt;
+
+&lt;p&gt;我们用&lt;code class=&quot;highlighter-rouge&quot;&gt;VO={}&lt;/code&gt;表示变量对象，VO是执行上下文的属性&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;activeExecutionContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;VO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;对应的变量对象是：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;VO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;globalContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;reference&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;VO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;functionContext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;变量对象的确定与修改主要分两个阶段：
+1.进入执行上下文（代码执行之前）
+2.代码执行阶段&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;刚进入执行上下文阶段&lt;/h3&gt;
+&lt;p&gt;进入执行上下文时，变量对象的属性的确定按优先级（高优先级属性会覆盖低优先级的同名属性）从高到低分为
+1. 函数形参（如果是函数上下文）：
+对于有值传递的形参，VO会产生形如&lt;code class=&quot;highlighter-rouge&quot;&gt;形参名:形参值&lt;/code&gt;的属性；对于没有值传递的形参，VO会产生形如&lt;code class=&quot;highlighter-rouge&quot;&gt;形参名:undefined&lt;/code&gt;的属性
+2. 函数声明（FD）
+VO会产生&lt;code class=&quot;highlighter-rouge&quot;&gt;函数名:函数引用&lt;/code&gt;的属性,注意不是函数表达式(FE)
+3. 变量声明（var)
+VO会产生&lt;code class=&quot;highlighter-rouge&quot;&gt;变量名:undefined&lt;/code&gt;的属性,注意：必须是var声明的变量
+例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){};&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){});&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 函数表达式FE所以不会影响VO&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在以a=10传递test时：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;VO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;reference&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FD&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;d&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;代码执行阶段&lt;/h3&gt;
+&lt;p&gt;还是以上面的例子为例：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//代码运行到此处后，VO[&#39;c&#39;]=10&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;_e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){};&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//代码运行到此处后，VO[&#39;e&#39;]=&amp;lt;reference FD &#39;_e&#39;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;关于‘覆盖’问题，让我们再来看个例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//function&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//10&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//20&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;第一个alert(x)为什么是function？
+首先程序刚运行到此上下文的时候，由于函数声明会覆盖同名变量声明，所以生成了&lt;code class=&quot;highlighter-rouge&quot;&gt;VO={x:&amp;lt;reference to function &#39;x&#39;&amp;gt;}&lt;/code&gt;,因此当运行到第一个alert(x)时候显示function。
+第二个alert(x)与第三个alert(x)，分别输出10与20是因为在‘代码运行阶段’VO[‘x’]被分别修改为10与20。
+又一个例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//10&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//undefined,not because y is not defined&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;最后一个例子：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;var x=10&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;第一个alert(x)会出错，显示&lt;code class=&quot;highlighter-rouge&quot;&gt;ReferenceError: x is not defined&lt;/code&gt;,因为eval的有它自身的执行上下文，当前的VO不会去eval的上下文中寻找x，注释掉第一个alert(x)后，在eval之后生成了x，所以能正确弹框显示10。&lt;/p&gt;
+
+&lt;p&gt;弄懂VO对于确定作用域链、原型链以及明确this的指向非常有帮助。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-5&quot;&gt;参考文献&lt;/h4&gt;
+&lt;p&gt;中文版：&lt;a href=&quot;http://weizhifeng.net/chapter-2-variable-object.html&quot;&gt;水木情书&lt;/a&gt;
+&lt;a href=&quot;http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/&quot;&gt;英文原版&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/JS-EC-VO/</link>
+        <guid isPermaLink="true">//2016/JS-EC-VO/</guid>
+        
+        <category>JS</category>
+        
+        
+        <category>JS</category>
+        
+      </item>
+    
+      <item>
+        <title>Helpful site and blog</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;软件与运维&lt;/h2&gt;
+
+&lt;h3 id=&quot;ubuntuhttpblogchinaunixnetuid-27666459-id-4058356html&quot;&gt;&lt;a href=&quot;http://blog.chinaunix.net/uid-27666459-id-4058356.html&quot;&gt;解决ubuntu下键盘输入布局问题&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;前端&lt;/h2&gt;
+
+&lt;h3 id=&quot;httpnipponcolorscomtoki--nbspnbspnbspwebpackhttpssegmentfaultcoma1190000004172052-nbspnbspnbsp-jqueryhttpsgithubcomxitugold-minerblobmastertodojquery-tips-everyone-should-knowmd-nbspnbspnbspcookiehttpbubkoocom20140421http-cookies-explained--nbspnbspnbspjqueryhttpwwwphp100commanualjquery--nbspnbspnbspiframejshttpharttlecom20160414iframe-script-injectionhtml-nbspnbspnbsphttpwwww3cfunscom&quot;&gt;&lt;a href=&quot;http://nipponcolors.com/#toki&quot;&gt;调色&lt;/a&gt;     &lt;a href=&quot;https://segmentfault.com/a/1190000004172052&quot;&gt;webpack常用功能&lt;/a&gt;     &lt;a href=&quot;https://github.com/xitu/gold-miner/blob/master/TODO/jQuery-Tips-Everyone-Should-Know.md&quot;&gt;jquery技巧&lt;/a&gt;    &lt;a href=&quot;http://bubkoo.com/2014/04/21/http-cookies-explained/&quot;&gt;cookie详解&lt;/a&gt;     &lt;a href=&quot;http://www.php100.com/manual/jquery/&quot;&gt;jquery中文文档&lt;/a&gt;     &lt;a href=&quot;http://harttle.com/2016/04/14/iframe-script-injection.html&quot;&gt;向iframe中注入js不同方式&lt;/a&gt;    &lt;a href=&quot;http://www.w3cfuns.com/&quot;&gt;前端网&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;安全&lt;/h2&gt;
+
+&lt;h3 id=&quot;h5httphtml5secorg--nbspnbspnbsp-sqli-labshttpwwwfreebufcomarticlesweb34619html&quot;&gt;&lt;a href=&quot;http://html5sec.org/&quot;&gt;h5安全&lt;/a&gt;      &lt;a href=&quot;http://www.freebuf.com/articles/web/34619.html&quot;&gt;sqli labs指南&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;思想&lt;/h2&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;综合&lt;/h2&gt;
+
+&lt;h3 id=&quot;httpgoldxituio&quot;&gt;&lt;a href=&quot;http://gold.xitu.io/&quot;&gt;掘金&lt;/a&gt;&lt;/h3&gt;
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/Helpful-site-and-blog/</link>
+        <guid isPermaLink="true">//2016/Helpful-site-and-blog/</guid>
+        
+        <category>Other</category>
+        
+        
+        <category>Other</category>
+        
+      </item>
+    
+      <item>
+        <title>HTML5 + JS Escapers</title>
+        <description>&lt;p&gt;HTML5在解析标签&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;时可能会出现以下三种数据状态：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;script data escaped dash dash state;&lt;/li&gt;
+  &lt;li&gt;script data escaped state;&lt;/li&gt;
+  &lt;li&gt;script data double escaped state.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其中处于escaped state与double escaped state的状态会被当做js语句执行。
+具体到标签中：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;  
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dash&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dash&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt; 
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;HTML5解析器在&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;&lt;/code&gt;标签中解析到&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;时候，会进入到dash dash escaped state，哪怕是&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;出现在js的字符串中,如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;!--var a;&amp;lt;script&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&amp;gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;script data state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;script data state too&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;上述代码的运行结果为：
+控制台输出&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--var a;&amp;lt;script&amp;gt;&lt;/code&gt;
+弹窗弹出 &lt;code class=&quot;highlighter-rouge&quot;&gt;script data state too&lt;/code&gt;
+不会出现js错误信息。&lt;/p&gt;
+
+&lt;p&gt;说明：
+&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;触发的状态会持续到遇到&amp;gt;为止，上面的代码如果不加&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;，那么&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;就会因为遇到&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;/script&amp;gt;&lt;/code&gt;中的&amp;gt;而结束。
+如果不加&lt;code class=&quot;highlighter-rouge&quot;&gt;--&amp;gt;&lt;/code&gt;那么js会运行到HTML5文档的最末尾EOF结束，从而导致解析错误。&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
+        <link>//2016/HTML5-JS-Escapers/</link>
+        <guid isPermaLink="true">//2016/HTML5-JS-Escapers/</guid>
+        
+        <category>HTML</category>
+        
+        <category>JS</category>
+        
+        
+        <category>HTMl</category>
         
       </item>
     

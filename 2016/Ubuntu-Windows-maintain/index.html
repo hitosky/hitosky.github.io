@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hell the Bug</title>
+  <title>ubuntu与windows常见运维</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//">
+  <link rel="canonical" href="//2016/Ubuntu-Windows-maintain/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -131,65 +131,30 @@
 
     <div class="content-wrapper">
       <div class="content-wrapper__inner">
-        <div class="main-post-list">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#Other">Other</a> <a href="/tags/#运维">运维</a> </span>
+    </div>
+    <h1 class="post-title">ubuntu与windows常见运维</h1>
+  </header>
 
-  <ol class="post-list">
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/bfc/" title="BFC块级上下文">BFC块级上下文</a></h2>
-        <p class="excerpt">之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。
+  <section class="post">
+    <h2 id="section">1.主机与虚拟机通信</h2>
+<p>虚拟机安装ssh，打开22端口，通过NAT模式设置网络，主机通过winscp或者putty访问虚拟机</p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#CSS">CSS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/plus-in-js/" title="what is {} + {} in JS?">what is {} + {} in JS?</a></h2>
-        <p class="excerpt">各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
-那么当进行<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>操作的时候，发生了什么呢？
+<h2 id="section-1">2.主机与虚拟机共享文件夹</h2>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/browser-parse-hjc/" title="浏览器解析Html,Js,Url">浏览器解析Html,Js,Url</a></h2>
-        <p class="excerpt"><h2 id="html">HTML解析</h2>
-首先明白三个概念：
+<p>虚拟机（重新）安装vmware tools，然后安装open-vm-dkms，在虚拟机VM-&gt;Settings-&gt;Options-&gt;Shared Folders下设置主机共享文件夹，完事后虚拟机终端输入命令：
+sudo mount –t vmhgfs .host:/ /mnt/hgfs</p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/Ubuntu-mysql5.5-chinese-messy-code/" title="Ubuntu下 mysql 5.5版本解决存放中文乱码问题">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</a></h2>
-        <p class="excerpt"><h2 id="mysql">进入mysql后相关命令：</h2>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-  </ol>
-
-  <hr class="post-list__divider ">
-
+  </section>
   
-      <nav class="pagination" role="navigation">
-  
+</article>
 
-  <span class="pagination__page-number">Page 1 of 3</span>
 
-  
-    <a rel="next" class="posts older btn small" href="/page2/">Older Posts →</a>
-  
-</nav>
-  
 
-</div>
       </div>
 
       <footer class="footer">

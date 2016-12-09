@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hell the Bug</title>
+  <title>Ubuntu下 mysql 5.5版本解决存放中文乱码问题</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//">
+  <link rel="canonical" href="//2016/Ubuntu-mysql5.5-chinese-messy-code/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -131,65 +131,55 @@
 
     <div class="content-wrapper">
       <div class="content-wrapper__inner">
-        <div class="main-post-list">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span>
+    </div>
+    <h1 class="post-title">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</h1>
+  </header>
 
-  <ol class="post-list">
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/bfc/" title="BFC块级上下文">BFC块级上下文</a></h2>
-        <p class="excerpt">之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。
+  <section class="post">
+    <h2 id="mysql">进入mysql后相关命令：</h2>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#CSS">CSS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/plus-in-js/" title="what is {} + {} in JS?">what is {} + {} in JS?</a></h2>
-        <p class="excerpt">各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
-那么当进行<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>操作的时候，发生了什么呢？
+<p>1.查看当前数据库中字符编码形式：
+<code class="highlighter-rouge">show variables like 'character%';</code></p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/browser-parse-hjc/" title="浏览器解析Html,Js,Url">浏览器解析Html,Js,Url</a></h2>
-        <p class="excerpt"><h2 id="html">HTML解析</h2>
-首先明白三个概念：
+<p>2.查看某个数据表中字符集编码：
+<code class="highlighter-rouge">show create table {表名};</code></p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/Ubuntu-mysql5.5-chinese-messy-code/" title="Ubuntu下 mysql 5.5版本解决存放中文乱码问题">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</a></h2>
-        <p class="excerpt"><h2 id="mysql">进入mysql后相关命令：</h2>
+<p>3.更改数据库编码：
+<code class="highlighter-rouge">alter database {数据库名} default character set {编码方式(如utf8)} collate {与编码相应的字符比较规则}</code></p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-  </ol>
+<p>4.更改数据表编码：
+<code class="highlighter-rouge">alter table {表名} convert to character set {编码方式};</code>
+或者
+<code class="highlighter-rouge">alter table {表名} default character set {编码方式};</code></p>
 
-  <hr class="post-list__divider ">
+<p>5.更改表中某一列的编码：
+<code class="highlighter-rouge">alter table {表名} change {列名} {列名}  character set {编码方式};</code></p>
 
+<h2 id="section">如何做到中文不乱码？</h2>
+<p><strong>做到2个一致：</strong></p>
+
+<p>1.database中编码方式，除去character_set_filesystem和character_sets_dir，其他character_set_*的值要一致：</p>
+
+<p>为了达成这个一致，需要两个步骤：</p>
+
+<p>(1) 修改mysql的配置文件（ubuntu 下是/etc/mysql/my.cnf）:
+在[client]于[mysql]下，插入语句：<code class="highlighter-rouge">default-character-set={编码方式}</code>
+在[mysqld]下，插入语句:<code class="highlighter-rouge">character-set-server={编码方式}</code></p>
+
+<p>(2) 执行上述命令3。</p>
+
+<p>2.表中字符集编码与1中database的编码一致：分别执行命令4与5。</p>
+
+  </section>
   
-      <nav class="pagination" role="navigation">
-  
+</article>
 
-  <span class="pagination__page-number">Page 1 of 3</span>
 
-  
-    <a rel="next" class="posts older btn small" href="/page2/">Older Posts →</a>
-  
-</nav>
-  
 
-</div>
       </div>
 
       <footer class="footer">

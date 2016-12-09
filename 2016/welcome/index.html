@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hell the Bug</title>
+  <title>欢迎来到Jekyll</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//">
+  <link rel="canonical" href="//2016/welcome/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -131,65 +131,39 @@
 
     <div class="content-wrapper">
       <div class="content-wrapper__inner">
-        <div class="main-post-list">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="8 Jan 2016" class="post-meta__date date">8 Jan 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#ri">ri</a> </span>
+    </div>
+    <h1 class="post-title">欢迎来到Jekyll</h1>
+  </header>
 
-  <ol class="post-list">
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/bfc/" title="BFC块级上下文">BFC块级上下文</a></h2>
-        <p class="excerpt">之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。
+  <section class="post">
+    <p>大叔大婶
+You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve --watch</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#CSS">CSS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/plus-in-js/" title="what is {} + {} in JS?">what is {} + {} in JS?</a></h2>
-        <p class="excerpt">各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
-那么当进行<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>操作的时候，发生了什么呢？
+<p>To add new posts, simply add a file in the <code class="highlighter-rouge">_posts</code> directory that follows the convention <code class="highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/browser-parse-hjc/" title="浏览器解析Html,Js,Url">浏览器解析Html,Js,Url</a></h2>
-        <p class="excerpt"><h2 id="html">HTML解析</h2>
-首先明白三个概念：
+<p>Jekyll also offers powerful support for code snippets:</p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/Ubuntu-mysql5.5-chinese-messy-code/" title="Ubuntu下 mysql 5.5版本解决存放中文乱码问题">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</a></h2>
-        <p class="excerpt"><h2 id="mysql">进入mysql后相关命令：</h2>
-
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-  </ol>
-
-  <hr class="post-list__divider ">
-
-  
-      <nav class="pagination" role="navigation">
-  
-
-  <span class="pagination__page-number">Page 1 of 3</span>
-
-  
-    <a rel="next" class="posts older btn small" href="/page2/">Older Posts →</a>
-  
-</nav>
-  
-
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
+<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span>
+</code></pre>
 </div>
+
+<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://github.com/jekyll/jekyll-help">Jekyll’s dedicated Help repository</a>.</p>
+
+
+  </section>
+  
+</article>
+
+
+
       </div>
 
       <footer class="footer">

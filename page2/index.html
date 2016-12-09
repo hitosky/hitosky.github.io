@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//">
+  <link rel="canonical" href="//page2/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -136,18 +136,28 @@
   <ol class="post-list">
     
       <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/bfc/" title="BFC块级上下文">BFC块级上下文</a></h2>
-        <p class="excerpt">之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。
+        <h2 class="post-list__post-title post-title"><a href="/2016/Ubuntu-Windows-maintain/" title="ubuntu与windows常见运维">ubuntu与windows常见运维</a></h2>
+        <p class="excerpt"><h2 id="section">1.主机与虚拟机通信</h2>
+虚拟机安装ssh，打开22端口，通过NAT模式设置网络，主机通过winscp或者putty访问虚拟机
 
 &hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#CSS">CSS</a> </span></div>
+        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#Other">Other</a> <a href="/tags/#运维">运维</a> </span></div>
         <hr class="post-list__divider">
       </li>
     
       <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/plus-in-js/" title="what is {} + {} in JS?">what is {} + {} in JS?</a></h2>
-        <p class="excerpt">各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
-那么当进行<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>操作的时候，发生了什么呢？
+        <h2 class="post-list__post-title post-title"><a href="/2016/JS-this/" title="JS this指向">JS this指向</a></h2>
+        <p class="excerpt"><strong>this常见的5种调用：</strong>
+1. 全局范围内
+<code class="highlighter-rouge">this=global</code>
+2. 函数调用
+<code class="highlighter-rouge">this=global</code>
+1. 对象方法的调用
+<code class="highlighter-rouge">this=object of calling method</code>
+1. 构造函数的调用
+<code class="highlighter-rouge">this=object of constructor</code>
+1. 显式地设置this（如apply调用）
+<code class="highlighter-rouge">this=caller of apply</code>
 
 &hellip;</p>
         <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
@@ -155,21 +165,25 @@
       </li>
     
       <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/browser-parse-hjc/" title="浏览器解析Html,Js,Url">浏览器解析Html,Js,Url</a></h2>
-        <p class="excerpt"><h2 id="html">HTML解析</h2>
-首先明白三个概念：
+        <h2 class="post-list__post-title post-title"><a href="/2016/JS-prototype/" title="JS 原型prototype探究">JS 原型prototype探究</a></h2>
+        <p class="excerpt">JS中原型对象的存在可以方便实现‘面向对象编程’（封装、继承、聚集与多态）。对象属性的查找可以通过原型链(prototype chain)。
+&gt; 原型链是一个用来实现继承和共享属性的有限对象链。
 
 &hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> </span></div>
+        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> <a href="/tags/#prototype">prototype</a> </span></div>
         <hr class="post-list__divider">
       </li>
     
       <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/Ubuntu-mysql5.5-chinese-messy-code/" title="Ubuntu下 mysql 5.5版本解决存放中文乱码问题">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</a></h2>
-        <p class="excerpt"><h2 id="mysql">进入mysql后相关命令：</h2>
+        <h2 class="post-list__post-title post-title"><a href="/2016/JS-EC-VO/" title="JS变量对象与执行上下文">JS变量对象与执行上下文</a></h2>
+        <p class="excerpt"><h2 id="execution-context">执行上下文(execution context)</h2>
+JS在确定作用域链(<code class="highlighter-rouge">scope link</code>)与原型链(<code class="highlighter-rouge">prototype link</code>)的过程中需要明确当前环境的执行上下文。<br />
+JS在执行期间会产生一个栈，用以存放代码运行过程中产生的执行上下文。其结构类似于：<br />
+    <code class="highlighter-rouge">ECStack=[];</code><br />
+在每次进入一个函数(包括递归调用、构造函数与eval函数)的时候，会把相应的执行上下文压入<code class="highlighter-rouge">ECStack</code>，在代码运行完毕后会执行上下文会被弹出栈，其第一个元素就是当前活跃的上下文<code class="highlighter-rouge">activeContext</code>。
 
 &hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span></div>
+        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
         <hr class="post-list__divider">
       </li>
     
@@ -180,11 +194,15 @@
   
       <nav class="pagination" role="navigation">
   
+    
+      <a rel="prev" class="posts newer btn small" href="/#blog" title="Previous Page">← Newer Posts</a>
+    
+  
 
-  <span class="pagination__page-number">Page 1 of 3</span>
+  <span class="pagination__page-number">Page 2 of 3</span>
 
   
-    <a rel="next" class="posts older btn small" href="/page2/">Older Posts →</a>
+    <a rel="next" class="posts older btn small" href="/page3/">Older Posts →</a>
   
 </nav>
   

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Hell the Bug</title>
+  <title>BFC块级上下文</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//">
+  <link rel="canonical" href="//2016/bfc/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -131,65 +131,62 @@
 
     <div class="content-wrapper">
       <div class="content-wrapper__inner">
-        <div class="main-post-list">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#CSS">CSS</a> </span>
+    </div>
+    <h1 class="post-title">BFC块级上下文</h1>
+  </header>
 
-  <ol class="post-list">
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/bfc/" title="BFC块级上下文">BFC块级上下文</a></h2>
-        <p class="excerpt">之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。
+  <section class="post">
+    <p>之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。</p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#CSS">CSS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/plus-in-js/" title="what is {} + {} in JS?">what is {} + {} in JS?</a></h2>
-        <p class="excerpt">各种编程语言在进行”+”操作的时候，两边的操作数都有可能发生隐式类型变换。Javascript由于是弱类型的语言，类型转换不如其他强类型编程语言严格。
-那么当进行<code class="highlighter-rouge"><span class="p">{}</span><span class="err">+</span><span class="p">{}</span></code>操作的时候，发生了什么呢？
+<p>网页在浏览器器中通过CSS布局的基本元素是<strong>盒模型Box</strong>，浏览器在渲染Box的时候，是根据其<strong>格式化上下文FC</strong>来进行渲染的，换句话说，就是Box内部元素位置如何排列以及各元素之间的关系与作用均由这个Box的FC所决定。这种做法有点类似js中的<strong>执行上下文EC</strong>来决定变量和对象的取值。
+### FC的分类 ###
+在CSS2.1中格式化上下文只有<code class="highlighter-rouge">BFC</code>和<code class="highlighter-rouge">IFC</code>（内联格式化上下文）, CSS3中还增加了<code class="highlighter-rouge">GFC</code>（网格布局格式化上下文）和<code class="highlighter-rouge">FFC</code>（自适应格式化上下文）。
+###FC的决定因素###
+FC类别主要由Box的display所决定，其他属性如float、position、overflow也能影响FC。
+### 哪些Box能形成BFC ###
+以下条件至少满足其一就能形成BFC
+1. float 的值不为 none
+1. position 的值为 fixed 或 absolute
+1. display 的值为 table-cell、table-caption、inline-block、flex 或 inline-flex
+1. overflow 的值不为 visiable
+2. fieldset元素</p>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/browser-parse-hjc/" title="浏览器解析Html,Js,Url">浏览器解析Html,Js,Url</a></h2>
-        <p class="excerpt"><h2 id="html">HTML解析</h2>
-首先明白三个概念：
+<h3 id="bfc">BFC内部元素特性</h3>
+<ul>
+  <li>内部Box会在垂直方向，从顶部开始一个接一个地放置</li>
+  <li>Box垂直方向的距离由margin属性决定，属于同一个BFC的两个相邻Box的垂直margin会发生叠加</li>
+  <li>对于从左往右顺序排列，每个元素的margin box的左边与包含块border box的左边重合；对于从右往左顺序则box右边重合。对于line box与浮动元素之间可能会产生文字环绕现象</li>
+  <li>BFC的区域不会与BFC外部的float box叠加</li>
+  <li>BFC内部子元素与BFC外部元素互相独立，互不影响</li>
+  <li>计算BFC高度时，浮动元素也参与计算</li>
+</ul>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/Ubuntu-mysql5.5-chinese-messy-code/" title="Ubuntu下 mysql 5.5版本解决存放中文乱码问题">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</a></h2>
-        <p class="excerpt"><h2 id="mysql">进入mysql后相关命令：</h2>
+<h3 id="bfc-1">BFC带来的问题</h3>
+<ul>
+  <li>外边距折叠问题</li>
+  <li>文字环绕</li>
+</ul>
 
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
-  </ol>
+<h3 id="bfc-2">BFC特性能为我们做什么</h3>
+<ul>
+  <li>闭合浮动</li>
+  <li>多列页面布局</li>
+</ul>
 
-  <hr class="post-list__divider ">
+<h3 id="bfc-3">如何解决BFC特性对内部元素带来的‘负面’影响</h3>
+<p>基本思路就是<strong>将一个BFC中的内容，放到不同的BFC中</strong></p>
 
+
+  </section>
   
-      <nav class="pagination" role="navigation">
-  
+</article>
 
-  <span class="pagination__page-number">Page 1 of 3</span>
 
-  
-    <a rel="next" class="posts older btn small" href="/page2/">Older Posts →</a>
-  
-</nav>
-  
 
-</div>
       </div>
 
       <footer class="footer">

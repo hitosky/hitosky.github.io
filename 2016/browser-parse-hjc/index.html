@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>浏览器解析Html,Js,Url</title>
+  <meta name="description" content="A Frontend Developer">
+  <meta name="author" content="If Life Cheat me">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hell the Bug">
+  <meta name="twitter:description" content="A Frontend Developer">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Hell the Bug">
+  <meta property="og:description" content="A Frontend Developer">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="//2016/browser-parse-hjc/">
+  <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Hell the Bug">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Hell the Bug</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">A Frontend Developer</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Hell the Bug blog" class="blog-button">Blog</a></li>
+              <li class="navigation__item"><a href="/algorithm" title="link to Hell the Bug algorithm" class="blog-button">Algorithm</a></li>
+              <li class="navigation__item"><a href="/demo" title="link to Hell the Bug demo" class="blog-button">Demo</a></li>
+              <li class="navigation__item"><a href="/tool" title="link to Hell the Bug tool" class="blog-button">Tool</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+
+            
+
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/hitosky" title="hitosky on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:cpyjss@google.com" title="Email cpyjss@google.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> </span>
+    </div>
+    <h1 class="post-title">浏览器解析Html,Js,Url</h1>
+  </header>
+
+  <section class="post">
+    <h2 id="html">HTML解析</h2>
+<p>首先明白三个概念：</p>
+
+<ol>
+  <li><strong>字符实体</strong>：
+字符实体是一个转义序列，它定义了无法在文本内容中输入的单个字符或符号，一般以&amp;开头，后接预定义的实体名称，或是#与十进制数。如’&lt;‘的字符实体名称为’&amp;lt’，实体编号为’&amp;#60’。</li>
+  <li><strong>HTML字符实体</strong>
+ 就像程序语言的关键字一样，HTML字符实体是浏览器为了解析html状态而预留的保留符号，常见的有’&lt;‘与’&gt;‘。</li>
+  <li><strong>字符引用</strong>
+字符引用又分为‘<strong>字符值引用</strong>’和‘<strong>字符实体引用</strong>’,字符引用是为了告诉浏览器，字符实体的转义序列有多长，一般用’;’来标志结束，如’&lt;‘的字符值引用为’&amp;#60 ;’，字符实体引用为’&amp;#lt ;’</li>
+</ol>
+
+<p>HTML解析器作为一个状态机，从输入流中获取字符并按照转换规则转换到另一种状态。解析过程中任何时候，只要遇到’&lt;’符号（后面不跟’/’）就会进入’tag open state’,然后转到’tag name state’,然后转到’before attribute name state’….最后进入’data state’,并释放当前标签的token。
+以&lt;div&gt;为例：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>输入流</th>
+      <th>解析状态(从上至下)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>开始</td>
+      <td>tag close state</td>
+    </tr>
+    <tr>
+      <td>&lt;</td>
+      <td>tag open state</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>tag name state</td>
+    </tr>
+    <tr>
+      <td>i</td>
+      <td>before attribute name state</td>
+    </tr>
+    <tr>
+      <td>v</td>
+      <td>before attribute name state</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>data state,release token</td>
+    </tr>
+    <tr>
+      <td>&lt;/div</td>
+      <td>tag close state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>‘&lt;’与‘&gt;’是浏览器解析html状态的重要标志，或者说解析状态的迁移条件是遇到’&lt;‘或’&gt;’ , ‘&amp;lt’或者’&amp;gt’虽然会被解码成’&lt;’或’&gt;’,却不会被浏览器当成是状态转移的条件。它们只会被当成用户输入的‘数据’</strong></p>
+
+<p>浏览器对于‘字符引用’的解析又分为三种情况:</p>
+
+<ol>
+  <li>data state中的字符引用</li>
+  <li>RCData state中的字符引用</li>
+  <li>属性值状态中的字符引用</li>
+</ol>
+
+<p>情况1：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div&gt;</span>这里的字符引用属于data state<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>情况2：
+这其实也属于1中的特殊情况，只是标签名为textarea、title、code、pre等为了让用户输入文本内容的标签。<strong>在这种状态的如果浏览器遇到’&lt;’，并不会进入tap open state，而是进入了‘RCData小于号状态’，如果’&lt;’后面不跟’/’符号，那么会重新进入’RCData state’。因此在这些标签中创建&lt;script&gt;标签，脚本不会执行。</strong></p>
+
+<p>情况3：
+标签中内嵌的属性值</p>
+
+<p><strong>总结下：html解析状态根据’&lt;’与’&lt;/&gt;’来改变，要让&lt;script&gt;中脚本执行，前提条件是能使解析状态达到data state</strong></p>
+
+<h2 id="url">URL解析</h2>
+
+<p>URL解析也是一个状态机模型，从输入流中进来的字符可以引导URL解析器转换到不同状态。
+但是URL解析的字符必须是ASCII字母，不然会进入“无类型”状态，也就是说如果对URL协议中字符进行任何编码操作，解析器就无法对它进行正确的解码。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"%6a%61%76%61%73%63%72%69%70%74:%61%6c%65%72%74%28%31%29"</span><span class="nt">&gt;</span>click me<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+</div>
+
+<p>这段代码本义是为了执行动作：<code class="highlighter-rouge">javascript:alert(1)</code> ,但是由于进行了unicode编码，解析器无法对其进行解码。
+同理</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript%3aalert(1)&gt;click me&lt;/a&gt;
+</span></code></pre>
+</div>
+
+<p>这段代码也无法执行对应的js动作，因为’%3a’无法被url解析器解析成’:’。
+再看这段代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;:%61%6c%65%72%74%28%32%29"</span><span class="nt">&gt;</span>click me<span class="nt">&lt;/a&gt;</span> 
+</code></pre>
+</div>
+
+<p>这段代码能正确执行相应的js动作，为什么？
+对于整个html文档来说，浏览器解析时候通常先用html解析器去解析，所以上面的代码会现在浏览器html解析器中解析，然后交由url解析器。经过html解析器解析后的相应代码就变为</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript:%61%6c%65%72%74%28%32%29"</span><span class="nt">&gt;</span>click me<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+</div>
+
+<p>当url解析器看见<code class="highlighter-rouge">javascript:</code>的时候，会把代码交由javascript解析器去解析，所以上面的代码最终被解析成</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"javascript:alert(1)"</span><span class="nt">&gt;</span>click me<span class="nt">&lt;/a&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="javascript">javascript解析</h2>
+
+<p>javascript解析器不同于html解析器，&lt;script&amp;gt标签有个特殊的属性：<strong>在它内部的字符引用不会被解析和解码。</strong>
+下面的代码不会被执行</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">97</span><span class="p">;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">108</span><span class="p">;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">101</span><span class="p">;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">114</span><span class="p">;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">116</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">40</span><span class="p">;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">57</span><span class="p">;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">41</span><span class="p">;</span><span class="o">&amp;</span><span class="err">#</span><span class="mi">59</span><span class="nt">&lt;/script&gt;</span> 
+</code></pre>
+</div>
+
+<p>javascript解析器会对类似”\uXXXX”unicode编码的字符进行解析，但是也分情况。</p>
+
+<ol>
+  <li>字符串中出现”\uXXXX”</li>
+  <li>标识符中出现”\uXXXX”</li>
+  <li>控制字符中出现”\uXXXX”</li>
+</ol>
+
+<p>情况1：
+当Unicode转义序列存在于字符串中时，它只会被解释为正规字符，而不是单引号，双引号或者换行符这些能够打破字符串上下文的字符。这项内容清楚地写在ECMAScript中。因此，<strong>Unicode转义序列将永远不会破环字符串上下文，因为它们只能被解释成字符串常量。</strong>
+如下代码的”\u000a”会被解析成”\n”</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="s1">'1\u000a'</span><span class="p">)</span><span class="nt">&lt;/script&gt;</span> 
+</code></pre>
+</div>
+
+<p>情况2：
+当Unicode转义序列出现在标识符名称中时，它会被解码并解释为标识符名称的一部分,例如函数名，属性名等。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="err">\</span><span class="nx">u0061</span><span class="err">\</span><span class="nx">u006c</span><span class="err">\</span><span class="nx">u0065</span><span class="err">\</span><span class="nx">u0072</span><span class="err">\</span><span class="nx">u0074</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="nt">&lt;/script&gt;</span>
+</code></pre>
+</div>
+<p>上面的这段代码能被js解析器解析成</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;script&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="nt">&lt;/script&gt;</span>
+</code></pre>
+</div>
+
+<p>并且成功执行。</p>
+
+<p>情况3：
+这里说的控制字符是指单引号，双引号，圆括号，花括号等用来控制程序进行的字符，类似于html字符实体与一般字符实体的区别，”\uXXXX”无法取代相应控制字符的角色作用。</p>
+
+<p>js解析器对于上面三种情况，总结下就是：
+<strong>Unicode转义序列只有在标识符名称里不被当作字符串，也只有在标识符名称里的编码字符能够被正常的解析。</strong></p>
+
+  </section>
+  
+</article>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2016 If Life Cheat me. All rights reserved.</span>
+</footer> 
+
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+    </div>
+  </body>
+</html>

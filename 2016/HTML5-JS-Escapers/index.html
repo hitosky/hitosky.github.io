@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Welcome to Jekyll!</title>
+  <title>HTML5 + JS Escapers</title>
   <meta name="description" content="A Frontend Developer">
-  <meta name="author" content="If Life Cheat Me">
+  <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//2016/welcome-to-jekyll/">
+  <link rel="canonical" href="//2016/HTML5-JS-Escapers/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -72,6 +72,9 @@
           <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
               <li class="navigation__item"><a href="/#blog" title="link to Hell the Bug blog" class="blog-button">Blog</a></li>
+              <li class="navigation__item"><a href="/algorithm" title="link to Hell the Bug algorithm" class="blog-button">Algorithm</a></li>
+              <li class="navigation__item"><a href="/demo" title="link to Hell the Bug demo" class="blog-button">Demo</a></li>
+              <li class="navigation__item"><a href="/tool" title="link to Hell the Bug tool" class="blog-button">Tool</a></li>
             </ul>
           </nav>
 
@@ -131,27 +134,53 @@
         <article class="post-container post-container--single">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="8 Jan 2016" class="post-meta__date date">8 Jan 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#a">a</a> </span>
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#HTML">HTML</a> <a href="/tags/#JS">JS</a> </span>
     </div>
-    <h1 class="post-title">Welcome to Jekyll!</h1>
+    <h1 class="post-title">HTML5 + JS Escapers</h1>
   </header>
 
   <section class="post">
-    <p>You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve --watch</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+    <p>HTML5在解析标签<code class="highlighter-rouge">&lt;script&gt;</code>时可能会出现以下三种数据状态：</p>
 
-<p>To add new posts, simply add a file in the <code class="highlighter-rouge">_posts</code> directory that follows the convention <code class="highlighter-rouge">YYYY-MM-DD-name-of-post.ext</code> and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.</p>
+<ul>
+  <li>script data escaped dash dash state;</li>
+  <li>script data escaped state;</li>
+  <li>script data double escaped state.</li>
+</ul>
 
-<p>Jekyll also offers powerful support for code snippets:</p>
+<p>其中处于escaped state与double escaped state的状态会被当做js语句执行。
+具体到标签中：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span>
-</code></pre>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span> <span class="o">=</span> <span class="s2">"text/javascript"</span><span class="o">&gt;</span>  
+    <span class="c">&lt;!--</span> <span class="nx">script</span> <span class="nx">data</span> <span class="nx">escaped</span> <span class="nx">dash</span> <span class="nx">dash</span> <span class="nx">state</span> 
+        <span class="k">this</span> <span class="nx">is</span> <span class="nx">script</span> <span class="nx">data</span> <span class="nx">escaped</span> <span class="nx">state</span>
+        <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span> <span class="k">this</span> <span class="nx">is</span> <span class="nx">script</span> <span class="nx">data</span> <span class="kr">double</span> <span class="nx">escaped</span> <span class="nx">state</span>
+        <span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>        <span class="k">this</span> <span class="nx">is</span> <span class="nx">script</span> <span class="nx">data</span> <span class="nx">escaped</span> <span class="nx">state</span>
+    <span class="o">--&gt;</span>
+<span class="o">&lt;</span> <span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
+</div>
+<p>HTML5解析器在<code class="highlighter-rouge">&lt;script&gt;&lt;/script&gt;</code>标签中解析到<code class="highlighter-rouge">&lt;!--</code>时候，会进入到dash dash escaped state，哪怕是<code class="highlighter-rouge">&lt;!--</code>出现在js的字符串中,如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"&lt;!--var a;&lt;script&gt;"</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/script&gt;/</span><span class="p">)</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">"script data state"</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">"script data state too"</span><span class="p">);</span>
+        <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre>
 </div>
 
-<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://github.com/jekyll/jekyll-help">Jekyll’s dedicated Help repository</a>.</p>
+<p>上述代码的运行结果为：
+控制台输出<code class="highlighter-rouge">&lt;!--var a;&lt;script&gt;</code>
+弹窗弹出 <code class="highlighter-rouge">script data state too</code>
+不会出现js错误信息。</p>
+
+<p>说明：
+<code class="highlighter-rouge">&lt;!--</code>触发的状态会持续到遇到&gt;为止，上面的代码如果不加<code class="highlighter-rouge">&lt;script&gt;</code>，那么<code class="highlighter-rouge">&lt;!--</code>就会因为遇到<code class="highlighter-rouge">&lt;/script&gt;</code>中的&gt;而结束。
+如果不加<code class="highlighter-rouge">--&gt;</code>那么js会运行到HTML5文档的最末尾EOF结束，从而导致解析错误。</p>
 
 
   </section>
@@ -163,10 +192,10 @@
       </div>
 
       <footer class="footer">
-  <span class="footer__copyright">&copy; 2016 If Life Cheat Me. All rights reserved.</span>
+  <span class="footer__copyright">&copy; 2016 If Life Cheat me. All rights reserved.</span>
 </footer> 
 
-<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
 
     </div>

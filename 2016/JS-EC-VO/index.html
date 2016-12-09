@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>JS变量对象与执行上下文</title>
+  <meta name="description" content="A Frontend Developer">
+  <meta name="author" content="If Life Cheat me">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hell the Bug">
+  <meta name="twitter:description" content="A Frontend Developer">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Hell the Bug">
+  <meta property="og:description" content="A Frontend Developer">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="//2016/JS-EC-VO/">
+  <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Hell the Bug">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Hell the Bug</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">A Frontend Developer</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Hell the Bug blog" class="blog-button">Blog</a></li>
+              <li class="navigation__item"><a href="/algorithm" title="link to Hell the Bug algorithm" class="blog-button">Algorithm</a></li>
+              <li class="navigation__item"><a href="/demo" title="link to Hell the Bug demo" class="blog-button">Demo</a></li>
+              <li class="navigation__item"><a href="/tool" title="link to Hell the Bug tool" class="blog-button">Tool</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+
+            
+
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/hitosky" title="hitosky on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:cpyjss@google.com" title="Email cpyjss@google.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span>
+    </div>
+    <h1 class="post-title">JS变量对象与执行上下文</h1>
+  </header>
+
+  <section class="post">
+    <h2 id="execution-context">执行上下文(execution context)</h2>
+<p>JS在确定作用域链(<code class="highlighter-rouge">scope link</code>)与原型链(<code class="highlighter-rouge">prototype link</code>)的过程中需要明确当前环境的执行上下文。<br />
+JS在执行期间会产生一个栈，用以存放代码运行过程中产生的执行上下文。其结构类似于：<br />
+    <code class="highlighter-rouge">ECStack=[];</code><br />
+在每次进入一个函数(包括递归调用、构造函数与eval函数)的时候，会把相应的执行上下文压入<code class="highlighter-rouge">ECStack</code>，在代码运行完毕后会执行上下文会被弹出栈，其第一个元素就是当前活跃的上下文<code class="highlighter-rouge">activeContext</code>。</p>
+
+<h3 id="section">全局代码</h3>
+
+<p>在初始化阶段（程序启动），<code class="highlighter-rouge">ECStack</code>看起来像这样</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">ECStack</span><span class="o">=</span><span class="p">[</span>  
+ <span class="nx">globalContext</span><span class="c1">//全局上下文   </span>
+<span class="p">];</span>  
+</code></pre>
+</div>
+
+<p>全局代码不包含在任何函数中。</p>
+
+<h3 id="section-1">函数代码</h3>
+
+<p>在进入函数代码的时候，会产生新的执行上下文并将其压入<code class="highlighter-rouge">ECStack</code>中。
+比如下面的例子：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">foo</span><span class="p">();</span>
+
+<span class="c1">//当运行到foo()的时候</span>
+<span class="nx">ECStack</span><span class="o">=</span><span class="p">[</span>
+  <span class="o">&lt;</span><span class="nx">foo</span><span class="o">&gt;</span><span class="nx">functionContext</span><span class="p">,</span>
+  <span class="nx">globalContext</span>
+<span class="p">]</span>
+<span class="c1">//当foo()执行完后</span>
+<span class="nx">ECStack</span><span class="o">=</span><span class="p">[</span>
+  <span class="nx">globalContext</span>
+<span class="p">]</span>
+</code></pre>
+</div>
+
+<p>functionContext弹出一般有两种可能：
+1.函数返回
+2.抛出异常却没有被捕获</p>
+
+<h3 id="eval">eval代码</h3>
+
+<p>eval代码在被调用的过程中，不仅会产生evalContext，还会产生调用它的callingContext。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nb">eval</span><span class="p">(</span><span class="s1">'var a=10'</span><span class="p">);</span>
+<span class="cm">/*
+ECStack=[
+  {context:evalContext,
+  callingContext:globalContext},
+  globalContext
+]
+*/</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+  <span class="nb">eval</span><span class="p">(</span><span class="s1">'var y=10'</span><span class="p">);</span>
+<span class="p">})()</span>
+<span class="cm">/*ECStack=[
+  {context:evalContext,
+  callingContext:&lt;foo&gt;functionContext},
+  &lt;foo&gt;functionContext
+]*/</span>
+</code></pre>
+</div>
+
+<h4 id="section-2">参考资料：</h4>
+<p>中文翻译：<a href="http://http://weizhifeng.net/chapter-1-execution-contexts.html">水木情书</a>
+<a href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/">英文原文</a></p>
+
+<h2 id="variable-object">变量对象(variable object)</h2>
+<p>JS会根据当前执行上下文，生成一个属性，叫做变量对象(variable object,简称VO),它存储了
+- 变量（var,变量声明）
+- 函数声明（function declaration,简称FD）
+- 函数形参</p>
+
+<p>我们用<code class="highlighter-rouge">VO={}</code>表示变量对象，VO是执行上下文的属性</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">activeExecutionContext</span><span class="o">=</span><span class="p">{</span>
+  <span class="na">VO</span><span class="p">:{</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>例子：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">a</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">test</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">b</span><span class="o">=</span><span class="mi">20</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">test</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>对应的变量对象是：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">VO</span><span class="p">(</span><span class="nx">globalContext</span><span class="p">)</span><span class="o">=</span><span class="p">{</span>
+  <span class="na">a</span><span class="p">:</span><span class="mi">10</span><span class="p">;</span>
+  <span class="nl">test</span><span class="p">:</span><span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="kd">function</span><span class="o">&gt;</span>
+<span class="p">};</span>
+
+<span class="nx">VO</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">test</span><span class="o">&gt;</span><span class="nx">functionContext</span><span class="p">)</span><span class="o">=</span><span class="p">{</span>
+  <span class="na">x</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span>
+  <span class="na">b</span><span class="p">:</span><span class="mi">20</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+
+<p>变量对象的确定与修改主要分两个阶段：
+1.进入执行上下文（代码执行之前）
+2.代码执行阶段</p>
+
+<h3 id="section-3">刚进入执行上下文阶段</h3>
+<p>进入执行上下文时，变量对象的属性的确定按优先级（高优先级属性会覆盖低优先级的同名属性）从高到低分为
+1. 函数形参（如果是函数上下文）：
+对于有值传递的形参，VO会产生形如<code class="highlighter-rouge">形参名:形参值</code>的属性；对于没有值传递的形参，VO会产生形如<code class="highlighter-rouge">形参名:undefined</code>的属性
+2. 函数声明（FD）
+VO会产生<code class="highlighter-rouge">函数名:函数引用</code>的属性,注意不是函数表达式(FE)
+3. 变量声明（var)
+VO会产生<code class="highlighter-rouge">变量名:undefined</code>的属性,注意：必须是var声明的变量
+例子：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">test</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">c</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+  <span class="kd">function</span> <span class="nx">d</span><span class="p">(){}</span>
+  <span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="kd">function</span> <span class="nx">_e</span><span class="p">(){};</span>
+  <span class="p">(</span><span class="kd">function</span> <span class="nx">x</span><span class="p">(){});</span>   <span class="c1">// 函数表达式FE所以不会影响VO</span>
+<span class="p">}</span>
+<span class="nx">test</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>在以a=10传递test时：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">VO</span><span class="p">(</span><span class="nx">test</span><span class="p">)</span><span class="o">=</span><span class="p">{</span>
+  <span class="na">a</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+  <span class="na">b</span><span class="p">:</span><span class="kc">undefined</span><span class="p">,</span>
+  <span class="na">c</span><span class="p">:</span><span class="kc">undefined</span><span class="p">,</span>
+  <span class="na">d</span><span class="p">:</span><span class="nx">reference</span> <span class="nx">to</span> <span class="nx">FD</span> <span class="s1">'d'</span><span class="p">,</span>
+  <span class="na">e</span><span class="p">:</span><span class="kc">undefined</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+
+<h3 id="section-4">代码执行阶段</h3>
+<p>还是以上面的例子为例：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">c</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="c1">//代码运行到此处后，VO['c']=10</span>
+<span class="kd">var</span> <span class="nx">e</span><span class="o">=</span><span class="kd">function</span> <span class="nx">_e</span><span class="p">(){};</span>
+<span class="c1">//代码运行到此处后，VO['e']=&lt;reference FD '_e'&gt;</span>
+</code></pre>
+</div>
+
+<p>关于‘覆盖’问题，让我们再来看个例子：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>  <span class="c1">//function</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>  <span class="c1">//10</span>
+<span class="nx">x</span><span class="o">=</span><span class="mi">20</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">x</span><span class="p">(){}</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>  <span class="c1">//20</span>
+</code></pre>
+</div>
+
+<p>第一个alert(x)为什么是function？
+首先程序刚运行到此上下文的时候，由于函数声明会覆盖同名变量声明，所以生成了<code class="highlighter-rouge">VO={x:&lt;reference to function 'x'&gt;}</code>,因此当运行到第一个alert(x)时候显示function。
+第二个alert(x)与第三个alert(x)，分别输出10与20是因为在‘代码运行阶段’VO[‘x’]被分别修改为10与20。
+又一个例子：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">x</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">y</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>   <span class="c1">//10</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">y</span><span class="p">);</span>   <span class="c1">//undefined,not because y is not defined</span>
+
+</code></pre>
+</div>
+
+<p>最后一个例子：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="nb">eval</span><span class="p">(</span><span class="s1">'var x=10'</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>第一个alert(x)会出错，显示<code class="highlighter-rouge">ReferenceError: x is not defined</code>,因为eval的有它自身的执行上下文，当前的VO不会去eval的上下文中寻找x，注释掉第一个alert(x)后，在eval之后生成了x，所以能正确弹框显示10。</p>
+
+<p>弄懂VO对于确定作用域链、原型链以及明确this的指向非常有帮助。</p>
+
+<h4 id="section-5">参考文献</h4>
+<p>中文版：<a href="http://weizhifeng.net/chapter-2-variable-object.html">水木情书</a>
+<a href="http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/">英文原版</a></p>
+
+  </section>
+  
+</article>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2016 If Life Cheat me. All rights reserved.</span>
+</footer> 
+
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+    </div>
+  </body>
+</html>
