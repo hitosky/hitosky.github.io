@@ -142,18 +142,24 @@
   <section class="post">
     <p>之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。</p>
 
-<p>网页在浏览器器中通过CSS布局的基本元素是<strong>盒模型Box</strong>，浏览器在渲染Box的时候，是根据其<strong>格式化上下文FC</strong>来进行渲染的，换句话说，就是Box内部元素位置如何排列以及各元素之间的关系与作用均由这个Box的FC所决定。这种做法有点类似js中的<strong>执行上下文EC</strong>来决定变量和对象的取值。
-### FC的分类 ###
-在CSS2.1中格式化上下文只有<code class="highlighter-rouge">BFC</code>和<code class="highlighter-rouge">IFC</code>（内联格式化上下文）, CSS3中还增加了<code class="highlighter-rouge">GFC</code>（网格布局格式化上下文）和<code class="highlighter-rouge">FFC</code>（自适应格式化上下文）。
-###FC的决定因素###
-FC类别主要由Box的display所决定，其他属性如float、position、overflow也能影响FC。
-### 哪些Box能形成BFC ###
-以下条件至少满足其一就能形成BFC
-1. float 的值不为 none
-1. position 的值为 fixed 或 absolute
-1. display 的值为 table-cell、table-caption、inline-block、flex 或 inline-flex
-1. overflow 的值不为 visiable
-2. fieldset元素</p>
+<p>网页在浏览器器中通过CSS布局的基本元素是<strong>盒模型Box</strong>，浏览器在渲染Box的时候，是根据其<strong>格式化上下文FC</strong>来进行渲染的，换句话说，就是Box内部元素位置如何排列以及各元素之间的关系与作用均由这个Box的FC所决定。这种做法有点类似js中的<strong>执行上下文EC</strong>来决定变量和对象的取值。</p>
+
+<h3 id="fc">FC的分类</h3>
+<p>在CSS2.1中格式化上下文只有<code class="highlighter-rouge">BFC</code>和<code class="highlighter-rouge">IFC</code>（内联格式化上下文）, CSS3中还增加了<code class="highlighter-rouge">GFC</code>（网格布局格式化上下文）和<code class="highlighter-rouge">FFC</code>（自适应格式化上下文）。</p>
+
+<h3 id="fc-1">FC的决定因素</h3>
+<p>FC类别主要由Box的display所决定，其他属性如float、position、overflow也能影响FC。</p>
+
+<h3 id="boxbfc">哪些Box能形成BFC</h3>
+<p>以下条件至少满足其一就能形成BFC</p>
+
+<ol>
+  <li>float 的值不为 none</li>
+  <li>position 的值为 fixed 或 absolute</li>
+  <li>display 的值为 table-cell、table-caption、inline-block、flex 或 inline-flex</li>
+  <li>overflow 的值不为 visiable</li>
+  <li>fieldset元素</li>
+</ol>
 
 <h3 id="bfc">BFC内部元素特性</h3>
 <ul>
