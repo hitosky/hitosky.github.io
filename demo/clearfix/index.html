@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+	<link rel="stylesheet" type="text/css" href="clearfix.css"></link>
+	<title>闭合浮动</title>
+</head>
+<body>
+	<div id='nav1'>
+		<xmp >
+DEMO:
+html 部分：
+<div id="father">
+<div class='leftchild'></div>
+<div class='rightchild'></div>
+</div>
+css 部分：
+#father{
+	background-color:green;
+	width:400px;
+}
+.leftchild{
+	float:left;
+	background-color: red;
+	width: 30%;
+	height: 100px;
+}
+.rightchild{
+	float:right;
+	background-color: blue;
+	width: 30%;
+	height: 100px;
+}			
+		</xmp>
+	</div>
+	<div id='nav2'>
+		<div>
+			<p><strong>闭合前：</strong></p>
+			<div id="father1">
+				<div class='leftchild'></div>
+				<div class='rightchild'></div>
+			</div>
+		</div>
+		<div>
+			<p><strong>闭合后：</strong></p>
+			<div id="father2">
+				<div class='leftchild'></div>
+				<div class='rightchild'></div>
+			</div>
+		</div>
+		<div>
+			<p><strong>方法一：在父元素father中设置属性overflow为auto或者hidden</strong></p>
+			<br></br>
+			<p><strong>方法二：在父元素father后面添加隐身的块级元素</strong></p>
+			<xmp>#father2:after{</xmp>
+			<xmp>	visibility: hidden;</xmp>
+    		<xmp>	display: block;</xmp>
+    		<xmp>	font-size: 0;</xmp>
+    		<xmp>	content: ".";</xmp>
+    		<xmp>	clear: both;</xmp>
+   			<xmp>	height: 0;</xmp>
+			<xmp>}</xmp>
+			<br></br>
+			<p><strong>方法三：在父元素father中设置属性height为子元素最大高度</strong></p>
+			<br></br>
+		</div>
+	</div>
+</body>
+</html>
