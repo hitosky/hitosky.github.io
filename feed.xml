@@ -5,26 +5,104 @@
     <description>A Frontend Developer</description>
     <link>//</link>
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 09 Dec 2016 14:39:14 +0800</pubDate>
-    <lastBuildDate>Fri, 09 Dec 2016 14:39:14 +0800</lastBuildDate>
+    <pubDate>Mon, 19 Dec 2016 21:48:14 +0800</pubDate>
+    <lastBuildDate>Mon, 19 Dec 2016 21:48:14 +0800</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
+    
+      <item>
+        <title>移动端viewport</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;各种尺寸&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;屏幕尺寸&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;screen.width/screen.height&lt;/code&gt;&lt;br /&gt;
+意义：用户屏幕的整体大小。&lt;br /&gt;
+度量单位：设备像素。&lt;br /&gt;
+显示器属性，非浏览器的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;窗口尺寸&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;window.innerWidth/window.innerHeight&lt;/code&gt;&lt;br /&gt;
+意义：浏览器窗口的整体大小，包括滚动条。&lt;br /&gt;
+度量单位：css像素&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;文档尺寸&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;document.documentElement.clientWidth/document.documentElement.clientHeight&lt;/code&gt;&lt;br /&gt;
+意义：网页文档大小，不包括滚动条。&lt;br /&gt;
+度量单位：css像素&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;滚动距离&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;window.pageXOffset/window.pageYOffset&lt;/code&gt;&lt;br /&gt;
+意义：浏览器页面滚动的距离，visual viewport相对于layout viewport的距离。&lt;br /&gt;
+度量单位：css像素&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;html元素尺寸&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;document.documentElement.offsetWidth/document.documentElement.offsetHeight&lt;/code&gt;&lt;br /&gt;
+意义：&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;/code&gt;元素的整体尺寸。&lt;br /&gt;
+度量单位：css像素&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;事件坐标&lt;/strong&gt;&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;event.pageX/event.pageY&lt;/code&gt;（包括页面滚动距离）&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;event.clientX/event.clientY&lt;/code&gt;（不包括页面滚动距离）&lt;br /&gt;
+意义：移动端事件相对于visual viewport的位置，pc端事件相对于文档的位置。&lt;/p&gt;
+
+&lt;h2 id=&quot;viewport&quot;&gt;viewport&lt;/h2&gt;
+&lt;p&gt;viewport功能用来约束你网站中最顶级包含块元素&amp;lt;html&amp;gt;的。&lt;/p&gt;
+
+&lt;p&gt;通俗的将，viewport就是设备显示网页的部分。根据ppk大神的理论呢，移动设备的viewport又分为：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1.layout viewport&lt;/strong&gt; &lt;br /&gt;		
+网页文档的实际布局区域，其宽度为：&lt;code class=&quot;highlighter-rouge&quot;&gt;document.documentElement.clientWidth&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.visual viewport&lt;/strong&gt; &lt;br /&gt;
+网页可视区域，其宽度为：&lt;code class=&quot;highlighter-rouge&quot;&gt;window.innerWidth&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.ideal viewport&lt;/strong&gt; &lt;br /&gt;
+在ideal viewport中，用户不需要缩放和移动横向滚动条就可以正常查看网站的所有内容；并且元素的
+大小合适，不同分辨率下相同css大小的元素大小差不多。不同设备拥有不同的ideal viewport。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;meta标签&lt;/strong&gt;&lt;/p&gt;
+
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0&quot; /&gt;
+
+&lt;p&gt;作用：设置layout viewport宽度为ideal viewport的宽度。&lt;/p&gt;
+
+&lt;p&gt;tips:
+ 在iphone和ipad上，无论你给viewport设的宽的是多少，如果没有指定默认的缩放值，则iphone和ipad会自动计算这个缩放值，以达到当前页面不会出现横向滚动条(或者说viewport的宽度就是屏幕的宽度)的目的。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 17 Dec 2016 05:48:01 +0800</pubDate>
+        <link>//2016/viewport/</link>
+        <guid isPermaLink="true">//2016/viewport/</guid>
+        
+        <category>Mobile</category>
+        
+        <category>viewport</category>
+        
+        
+        <category>Mobile</category>
+        
+      </item>
     
       <item>
         <title>BFC块级上下文</title>
         <description>&lt;p&gt;之前一直不清楚BFC是什么鬼，今天特意看了下大牛们的博文，这里总结下。&lt;/p&gt;
 
-&lt;p&gt;网页在浏览器器中通过CSS布局的基本元素是&lt;strong&gt;盒模型Box&lt;/strong&gt;，浏览器在渲染Box的时候，是根据其&lt;strong&gt;格式化上下文FC&lt;/strong&gt;来进行渲染的，换句话说，就是Box内部元素位置如何排列以及各元素之间的关系与作用均由这个Box的FC所决定。这种做法有点类似js中的&lt;strong&gt;执行上下文EC&lt;/strong&gt;来决定变量和对象的取值。
-### FC的分类 ###
-在CSS2.1中格式化上下文只有&lt;code class=&quot;highlighter-rouge&quot;&gt;BFC&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;IFC&lt;/code&gt;（内联格式化上下文）, CSS3中还增加了&lt;code class=&quot;highlighter-rouge&quot;&gt;GFC&lt;/code&gt;（网格布局格式化上下文）和&lt;code class=&quot;highlighter-rouge&quot;&gt;FFC&lt;/code&gt;（自适应格式化上下文）。
-###FC的决定因素###
-FC类别主要由Box的display所决定，其他属性如float、position、overflow也能影响FC。
-### 哪些Box能形成BFC ###
-以下条件至少满足其一就能形成BFC
-1. float 的值不为 none
-1. position 的值为 fixed 或 absolute
-1. display 的值为 table-cell、table-caption、inline-block、flex 或 inline-flex
-1. overflow 的值不为 visiable
-2. fieldset元素&lt;/p&gt;
+&lt;p&gt;网页在浏览器器中通过CSS布局的基本元素是&lt;strong&gt;盒模型Box&lt;/strong&gt;，浏览器在渲染Box的时候，是根据其&lt;strong&gt;格式化上下文FC&lt;/strong&gt;来进行渲染的，换句话说，就是Box内部元素位置如何排列以及各元素之间的关系与作用均由这个Box的FC所决定。这种做法有点类似js中的&lt;strong&gt;执行上下文EC&lt;/strong&gt;来决定变量和对象的取值。&lt;/p&gt;
+
+&lt;h3 id=&quot;fc&quot;&gt;FC的分类&lt;/h3&gt;
+&lt;p&gt;在CSS2.1中格式化上下文只有&lt;code class=&quot;highlighter-rouge&quot;&gt;BFC&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;IFC&lt;/code&gt;（内联格式化上下文）, CSS3中还增加了&lt;code class=&quot;highlighter-rouge&quot;&gt;GFC&lt;/code&gt;（网格布局格式化上下文）和&lt;code class=&quot;highlighter-rouge&quot;&gt;FFC&lt;/code&gt;（自适应格式化上下文）。&lt;/p&gt;
+
+&lt;h3 id=&quot;fc-1&quot;&gt;FC的决定因素&lt;/h3&gt;
+&lt;p&gt;FC类别主要由Box的display所决定，其他属性如float、position、overflow也能影响FC。&lt;/p&gt;
+
+&lt;h3 id=&quot;boxbfc&quot;&gt;哪些Box能形成BFC&lt;/h3&gt;
+&lt;p&gt;以下条件至少满足其一就能形成BFC&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;float 的值不为 none&lt;/li&gt;
+  &lt;li&gt;position 的值为 fixed 或 absolute&lt;/li&gt;
+  &lt;li&gt;display 的值为 table-cell、table-caption、inline-block、flex 或 inline-flex&lt;/li&gt;
+  &lt;li&gt;overflow 的值不为 visiable&lt;/li&gt;
+  &lt;li&gt;fieldset元素&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h3 id=&quot;bfc&quot;&gt;BFC内部元素特性&lt;/h3&gt;
 &lt;ul&gt;
@@ -830,64 +908,6 @@ VO会产生&lt;code class=&quot;highlighter-rouge&quot;&gt;变量名:undefined&l
         
         
         <category>Other</category>
-        
-      </item>
-    
-      <item>
-        <title>HTML5 + JS Escapers</title>
-        <description>&lt;p&gt;HTML5在解析标签&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;时可能会出现以下三种数据状态：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;script data escaped dash dash state;&lt;/li&gt;
-  &lt;li&gt;script data escaped state;&lt;/li&gt;
-  &lt;li&gt;script data double escaped state.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;其中处于escaped state与double escaped state的状态会被当做js语句执行。
-具体到标签中：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;  
-    &lt;span class=&quot;c&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dash&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dash&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt; 
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;escaped&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;HTML5解析器在&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&amp;lt;/script&amp;gt;&lt;/code&gt;标签中解析到&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;时候，会进入到dash dash escaped state，哪怕是&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;出现在js的字符串中,如下&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&amp;lt;!--var a;&amp;lt;script&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&amp;gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;script data state&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;script data state too&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/script&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;上述代码的运行结果为：
-控制台输出&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--var a;&amp;lt;script&amp;gt;&lt;/code&gt;
-弹窗弹出 &lt;code class=&quot;highlighter-rouge&quot;&gt;script data state too&lt;/code&gt;
-不会出现js错误信息。&lt;/p&gt;
-
-&lt;p&gt;说明：
-&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;触发的状态会持续到遇到&amp;gt;为止，上面的代码如果不加&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt;，那么&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;!--&lt;/code&gt;就会因为遇到&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;/script&amp;gt;&lt;/code&gt;中的&amp;gt;而结束。
-如果不加&lt;code class=&quot;highlighter-rouge&quot;&gt;--&amp;gt;&lt;/code&gt;那么js会运行到HTML5文档的最末尾EOF结束，从而导致解析错误。&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 07 Dec 2016 23:48:01 +0800</pubDate>
-        <link>//2016/HTML5-JS-Escapers/</link>
-        <guid isPermaLink="true">//2016/HTML5-JS-Escapers/</guid>
-        
-        <category>HTML</category>
-        
-        <category>JS</category>
-        
-        
-        <category>HTMl</category>
         
       </item>
     

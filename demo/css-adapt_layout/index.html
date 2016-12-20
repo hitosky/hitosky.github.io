@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="index.css" />
+  <title>响应式布局</title>
+</head>
+<body>
+  <div class="layout">
+    <div class='row'>
+      <div class='col-sm-4 col-xs-6'>
+        <div class='col-content'>
+          <h1>网格布局</h1>
+        </div>
+      </div>
+      <div class='col-sm-4 col-xs-6'>
+        <div class='col-content'>
+          <h1>网格布局</h1>
+        </div>
+      </div>
+      <div class='col-sm-4 col-xs-12'>
+        <div class='col-content'>
+          <h1>网格布局</h1>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-sm-3 col-xs-3'>
+        <div class='col-content'>
+          <h1>网格布局</h1>
+        </div>
+      </div>
+      <div class='col-sm-6 col-xs-6'>
+        <div class='col-content'>
+          <h1>网格布局</h1>
+        </div>
+      </div>
+      <div class='col-sm-3 col-xs-3'>
+        <div class='col-content'>
+          <h1>网格布局</h1>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+  <div class="layout">
+    <header>rem布局头部</header>
+    <div class="rem-box"></div>
+    <div class="rem-box"></div>
+    <div class="rem-box"></div>
+    <footer class="rem">rem布局头部</footer>
+  </div>
+  <script src="../../js/master.js"></script>
+  <script>
+    calFontSize(document,window);
+  </script>
+</body>
+</html>

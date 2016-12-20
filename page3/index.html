@@ -72,9 +72,8 @@
           <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
               <li class="navigation__item"><a href="/#blog" title="link to Hell the Bug blog" class="blog-button">Blog</a></li>
-              <li class="navigation__item"><a href="/algorithm" title="link to Hell the Bug algorithm" class="blog-button">Algorithm</a></li>
-              <li class="navigation__item"><a href="/demo" title="link to Hell the Bug demo" class="blog-button">Demo</a></li>
-              <li class="navigation__item"><a href="/tool" title="link to Hell the Bug tool" class="blog-button">Tool</a></li>
+              <li class="navigation__item"><a href="/work" title="link to Hell the Bug work" class="blog-button">Work</a></li>
+    
             </ul>
           </nav>
 
@@ -136,6 +135,19 @@
   <ol class="post-list">
     
       <li>
+        <h2 class="post-list__post-title post-title"><a href="/2016/JS-EC-VO/" title="JS变量对象与执行上下文">JS变量对象与执行上下文</a></h2>
+        <p class="excerpt"><h2 id="execution-context">执行上下文(execution context)</h2>
+JS在确定作用域链(<code class="highlighter-rouge">scope link</code>)与原型链(<code class="highlighter-rouge">prototype link</code>)的过程中需要明确当前环境的执行上下文。<br />
+JS在执行期间会产生一个栈，用以存放代码运行过程中产生的执行上下文。其结构类似于：<br />
+    <code class="highlighter-rouge">ECStack=[];</code><br />
+在每次进入一个函数(包括递归调用、构造函数与eval函数)的时候，会把相应的执行上下文压入<code class="highlighter-rouge">ECStack</code>，在代码运行完毕后会执行上下文会被弹出栈，其第一个元素就是当前活跃的上下文<code class="highlighter-rouge">activeContext</code>。
+
+&hellip;</p>
+        <div class="post-list__meta"><time datetime="7 Dec 2016" class="post-list__meta--date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#JS">JS</a> </span></div>
+        <hr class="post-list__divider">
+      </li>
+    
+      <li>
         <h2 class="post-list__post-title post-title"><a href="/2016/Helpful-site-and-blog/" title="Helpful site and blog">Helpful site and blog</a></h2>
         <p class="excerpt"><h2 id="section">软件与运维</h2>
 
@@ -163,16 +175,6 @@ ES6规定只有当参数在被使用的时候，才会被“计算”值。利�
         <hr class="post-list__divider">
       </li>
     
-      <li>
-        <h2 class="post-list__post-title post-title"><a href="/2016/welcome/" title="欢迎来到Jekyll">欢迎来到Jekyll</a></h2>
-        <p class="excerpt">大叔大婶
-You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve --watch</code>, which launches a web server and auto-regenerates your site when a file is updated.
-
-&hellip;</p>
-        <div class="post-list__meta"><time datetime="8 Jan 2016" class="post-list__meta--date date">8 Jan 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#ri">ri</a> </span></div>
-        <hr class="post-list__divider">
-      </li>
-    
   </ol>
 
   <hr class="post-list__divider ">
@@ -185,8 +187,10 @@ You’ll find this post in your <code class="highlighter-rouge">_posts</code> di
     
   
 
-  <span class="pagination__page-number">Page 3 of 3</span>
+  <span class="pagination__page-number">Page 3 of 4</span>
 
+  
+    <a rel="next" class="posts older btn small" href="/page4/">Older Posts →</a>
   
 </nav>
   

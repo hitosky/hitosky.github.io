@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Ubuntu下 mysql 5.5版本解决存放中文乱码问题</title>
+  <title>移动端viewport</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//2016/Ubuntu-mysql5.5-chinese-messy-code/">
+  <link rel="canonical" href="//2016/viewport/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -133,45 +133,68 @@
         <article class="post-container post-container--single">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span>
+      <time datetime="17 Dec 2016" class="post-meta__date date">17 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#Mobile">Mobile</a> <a href="/tags/#viewport">viewport</a> </span>
     </div>
-    <h1 class="post-title">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</h1>
+    <h1 class="post-title">移动端viewport</h1>
   </header>
 
   <section class="post">
-    <h2 id="mysql">进入mysql后相关命令：</h2>
+    <h2 id="section">各种尺寸</h2>
 
-<p>1.查看当前数据库中字符编码形式：
-<code class="highlighter-rouge">show variables like 'character%';</code></p>
+<p><strong>屏幕尺寸</strong><br />
+<code class="highlighter-rouge">screen.width/screen.height</code><br />
+意义：用户屏幕的整体大小。<br />
+度量单位：设备像素。<br />
+显示器属性，非浏览器的。</p>
 
-<p>2.查看某个数据表中字符集编码：
-<code class="highlighter-rouge">show create table {表名};</code></p>
+<p><strong>窗口尺寸</strong><br />
+<code class="highlighter-rouge">window.innerWidth/window.innerHeight</code><br />
+意义：浏览器窗口的整体大小，包括滚动条。<br />
+度量单位：css像素</p>
 
-<p>3.更改数据库编码：
-<code class="highlighter-rouge">alter database {数据库名} default character set {编码方式(如utf8)} collate {与编码相应的字符比较规则}</code></p>
+<p><strong>文档尺寸</strong><br />
+<code class="highlighter-rouge">document.documentElement.clientWidth/document.documentElement.clientHeight</code><br />
+意义：网页文档大小，不包括滚动条。<br />
+度量单位：css像素</p>
 
-<p>4.更改数据表编码：
-<code class="highlighter-rouge">alter table {表名} convert to character set {编码方式};</code>
-或者
-<code class="highlighter-rouge">alter table {表名} default character set {编码方式};</code></p>
+<p><strong>滚动距离</strong><br />
+<code class="highlighter-rouge">window.pageXOffset/window.pageYOffset</code><br />
+意义：浏览器页面滚动的距离，visual viewport相对于layout viewport的距离。<br />
+度量单位：css像素</p>
 
-<p>5.更改表中某一列的编码：
-<code class="highlighter-rouge">alter table {表名} change {列名} {列名}  character set {编码方式};</code></p>
+<p><strong>html元素尺寸</strong><br />
+<code class="highlighter-rouge">document.documentElement.offsetWidth/document.documentElement.offsetHeight</code><br />
+意义：<code class="highlighter-rouge"><span class="nt">&lt;html&gt;</span></code>元素的整体尺寸。<br />
+度量单位：css像素</p>
 
-<h2 id="section">如何做到中文不乱码？</h2>
-<p><strong>做到2个一致：</strong></p>
+<p><strong>事件坐标</strong><br />
+<code class="highlighter-rouge">event.pageX/event.pageY</code>（包括页面滚动距离）<br />
+<code class="highlighter-rouge">event.clientX/event.clientY</code>（不包括页面滚动距离）<br />
+意义：移动端事件相对于visual viewport的位置，pc端事件相对于文档的位置。</p>
 
-<p>1.database中编码方式，除去character_set_filesystem和character_sets_dir，其他character_set_*的值要一致：</p>
+<h2 id="viewport">viewport</h2>
+<p>viewport功能用来约束你网站中最顶级包含块元素&lt;html&gt;的。</p>
 
-<p>为了达成这个一致，需要两个步骤：</p>
+<p>通俗的将，viewport就是设备显示网页的部分。根据ppk大神的理论呢，移动设备的viewport又分为：</p>
 
-<p>(1) 修改mysql的配置文件（ubuntu 下是/etc/mysql/my.cnf）:
-在[client]于[mysql]下，插入语句：<code class="highlighter-rouge">default-character-set={编码方式}</code>
-在[mysqld]下，插入语句:<code class="highlighter-rouge">character-set-server={编码方式}</code></p>
+<p><strong>1.layout viewport</strong> <br />		
+网页文档的实际布局区域，其宽度为：<code class="highlighter-rouge">document.documentElement.clientWidth</code>。</p>
 
-<p>(2) 执行上述命令3。</p>
+<p><strong>2.visual viewport</strong> <br />
+网页可视区域，其宽度为：<code class="highlighter-rouge">window.innerWidth</code>。</p>
 
-<p>2.表中字符集编码与1中database的编码一致：分别执行命令4与5。</p>
+<p><strong>3.ideal viewport</strong> <br />
+在ideal viewport中，用户不需要缩放和移动横向滚动条就可以正常查看网站的所有内容；并且元素的
+大小合适，不同分辨率下相同css大小的元素大小差不多。不同设备拥有不同的ideal viewport。</p>
+
+<p><strong>meta标签</strong></p>
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+
+<p>作用：设置layout viewport宽度为ideal viewport的宽度。</p>
+
+<p>tips:
+ 在iphone和ipad上，无论你给viewport设的宽的是多少，如果没有指定默认的缩放值，则iphone和ipad会自动计算这个缩放值，以达到当前页面不会出现横向滚动条(或者说viewport的宽度就是屏幕的宽度)的目的。</p>
 
   </section>
   

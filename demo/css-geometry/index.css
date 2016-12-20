@@ -1,0 +1,20 @@
+.container {
+	margin-top: 100px;
+}
+
+div[class*='col-xs'],
+div[class*='col-sm'],
+div[class*='col-md'],
+div[class*='col-lg'] {
+	height: 200px;
+	border: 1px solid #000;
+	background: #efefef;
+}
+
+.geometry {
+	background: #ffffff;	
+}
+
+	.square {
+		height: 80px;
+	}

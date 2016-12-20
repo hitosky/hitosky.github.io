@@ -1,0 +1,41 @@
+body {
+	word-wrap: break-word;
+}
+
+.nav {
+	position: fixed;
+	top: 0;
+	width: 100%;
+
+	font-size: 1.5em;
+}
+
+.tag-container {
+	position: absolute;
+	width: 100%;
+	top:80px;
+	display: none;
+}
+	.tag-container.active {
+		display: block;
+	}
+
+.col-content {
+	margin: 10px 0;
+	padding: 2px;
+	width: 100%;
+
+	font-size: 2em;
+	text-align: center;
+	border: 2px solid #efefef;
+}
+
+	.col-content:hover {
+		color: #99ee99;
+		background: #000;
+	}
+
+	a:hover,a:focus{
+		
+		text-decoration: none;
+	}

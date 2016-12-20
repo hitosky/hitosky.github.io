@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Ubuntu下 mysql 5.5版本解决存放中文乱码问题</title>
+  <title>Hell the Bug</title>
   <meta name="description" content="A Frontend Developer">
   <meta name="author" content="If Life Cheat me">
   <meta name="HandheldFriendly" content="True">
@@ -43,7 +43,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="//2016/Ubuntu-mysql5.5-chinese-messy-code/">
+  <link rel="canonical" href="//page4/">
   <link rel="alternate" type="application/rss+xml" title="Hell the Bug" href="/feed.xml">
 </head>
 
@@ -130,55 +130,39 @@
 
     <div class="content-wrapper">
       <div class="content-wrapper__inner">
-        <article class="post-container post-container--single">
-  <header class="post-header">
-    <div class="post-meta">
-      <time datetime="7 Dec 2016" class="post-meta__date date">7 Dec 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#mysql">mysql</a> <a href="/tags/#乱码">乱码</a> </span>
-    </div>
-    <h1 class="post-title">Ubuntu下 mysql 5.5版本解决存放中文乱码问题</h1>
-  </header>
+        <div class="main-post-list">
 
-  <section class="post">
-    <h2 id="mysql">进入mysql后相关命令：</h2>
+  <ol class="post-list">
+    
+      <li>
+        <h2 class="post-list__post-title post-title"><a href="/2016/welcome/" title="欢迎来到Jekyll">欢迎来到Jekyll</a></h2>
+        <p class="excerpt">大叔大婶
+You’ll find this post in your <code class="highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="highlighter-rouge">jekyll serve --watch</code>, which launches a web server and auto-regenerates your site when a file is updated.
 
-<p>1.查看当前数据库中字符编码形式：
-<code class="highlighter-rouge">show variables like 'character%';</code></p>
+&hellip;</p>
+        <div class="post-list__meta"><time datetime="8 Jan 2016" class="post-list__meta--date date">8 Jan 2016</time> &#8226; <span class="post-meta__tags">on <a href="/tags/#ri">ri</a> </span></div>
+        <hr class="post-list__divider">
+      </li>
+    
+  </ol>
 
-<p>2.查看某个数据表中字符集编码：
-<code class="highlighter-rouge">show create table {表名};</code></p>
+  <hr class="post-list__divider ">
 
-<p>3.更改数据库编码：
-<code class="highlighter-rouge">alter database {数据库名} default character set {编码方式(如utf8)} collate {与编码相应的字符比较规则}</code></p>
-
-<p>4.更改数据表编码：
-<code class="highlighter-rouge">alter table {表名} convert to character set {编码方式};</code>
-或者
-<code class="highlighter-rouge">alter table {表名} default character set {编码方式};</code></p>
-
-<p>5.更改表中某一列的编码：
-<code class="highlighter-rouge">alter table {表名} change {列名} {列名}  character set {编码方式};</code></p>
-
-<h2 id="section">如何做到中文不乱码？</h2>
-<p><strong>做到2个一致：</strong></p>
-
-<p>1.database中编码方式，除去character_set_filesystem和character_sets_dir，其他character_set_*的值要一致：</p>
-
-<p>为了达成这个一致，需要两个步骤：</p>
-
-<p>(1) 修改mysql的配置文件（ubuntu 下是/etc/mysql/my.cnf）:
-在[client]于[mysql]下，插入语句：<code class="highlighter-rouge">default-character-set={编码方式}</code>
-在[mysqld]下，插入语句:<code class="highlighter-rouge">character-set-server={编码方式}</code></p>
-
-<p>(2) 执行上述命令3。</p>
-
-<p>2.表中字符集编码与1中database的编码一致：分别执行命令4与5。</p>
-
-  </section>
   
-</article>
+      <nav class="pagination" role="navigation">
+  
+    
+      <a rel="prev" class="posts newer btn small" href="/page3/">← Newer Posts</a>
+    
+  
 
+  <span class="pagination__page-number">Page 4 of 4</span>
 
+  
+</nav>
+  
 
+</div>
       </div>
 
       <footer class="footer">
