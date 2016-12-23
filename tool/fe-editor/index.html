@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>在线编辑器</title>
+        <meta charset="utf8">
+        <link type="text/css" rel="stylesheet" href="./index.css" />
+
+    </head>
+    <body>
+    <div class="m-content">
+        <dl class="m-editor">
+            <dt class="theme "><input class="c-btn choose" type="button" value="HTML"/></dt>
+            <dt class="theme"><input class="c-btn" type="button" value="CSS"/></dt>
+            <dt class="theme"><input class="c-btn" type="button" value="JS" /></dt>
+            <dt class="theme"><input class="c-btn result" type="button" value="Result"/></dt>
+            <div class="m-wrap">
+                <ol class="line">
+                    <li></li>
+                </ol>
+                <div class="m-code-area">
+                <dd class="code choose" id="html-code"><textarea class="html-code" spellcheck="false" autofocus></textarea></dd>
+                <dd class="code" id="css-code"><textarea   class='css-code' spellcheck="false"></textarea></dd>
+                <dd class="code" id="js-code"><textarea   class='js-code' spellcheck="false"></textarea></dd>
+                </div>
+                <dd class="code" id="result-code">
+                    <iframe id='code-result' scrolling="true" >
+                    </iframe>
+                </dd>
+                
+            </div>
+
+        </dl>
+        <input class="c-btn-result" type="button" value="显示结果" />
+    </div>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="./index.js"></script>
+    </body>
+</html>

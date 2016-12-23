@@ -1,0 +1,25 @@
+.animation (@name,@duration,@timeFunc,@delay,@iterCount,@direction: normal) {
+	/* 动画名称 */
+	animation-name: @name;
+	/* 动画持续时间 */
+	animation-duration: @duration;
+	/* 属性变化速度函数 
+	* ease: 逐渐变慢
+	* linear: 匀速
+	* ease-in: 加速
+	* ease-out: 减速
+	* ease-in-out: 先加速后减速
+	*/
+	animation-timing-function: @timeFunc;
+	/* 播放动画的等待时间 */
+	animation-delay: @delay;
+	/* 动画播放次数
+	* infinite: 无限次
+	*/
+	animation-iteration-count: @iterCount;
+	/* 动画播放方向 
+	* normal: 每次都向前播放
+	* alternate: 偶数次向前，奇数次向后
+	*/
+	animation-direction: @direction;
+}

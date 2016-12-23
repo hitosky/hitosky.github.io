@@ -1,0 +1,18 @@
+@import "../../css/animation.less";
+
+@keyframes 'colorChange' {
+	0% {
+		background: #cd6efa;
+	}
+	50% {
+		background: #afe6dc;
+	}
+	100% {
+		background: #efacd6;
+	}
+}
+.m-content {
+	height: 100px;
+	width: 100px;
+	.animation('colorChange',10s,ease-in,2s,10);
+}

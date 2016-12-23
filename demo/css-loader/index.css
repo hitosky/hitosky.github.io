@@ -1,0 +1,1 @@
+@keyframes colorChange{0%{background:#cd6efa}50%{background:#afe6dc}100%{background:#efacd6}}.m-content{height:100px;width:100px;animation-name:colorChange;animation-duration:10s;animation-timing-function:ease-in;animation-delay:2s;animation-iteration-count:10;animation-direction:normal}
