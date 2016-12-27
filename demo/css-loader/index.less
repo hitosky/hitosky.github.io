@@ -1,18 +1,38 @@
 @import "../../css/animation.less";
 
-@keyframes 'colorChange' {
-	0% {
-		background: #cd6efa;
-	}
-	50% {
-		background: #afe6dc;
-	}
-	100% {
-		background: #efacd6;
-	}
-}
+
 .m-content {
+	position: relative;
+	margin: 100px;
 	height: 100px;
 	width: 100px;
-	.animation('colorChange',10s,ease-in,2s,10);
+
+	border-radius: 100%;
+	animation: rotate 1s linear 0s infinite normal;
+
+	.loader-ball {
+		position: absolute;
+		top: -13px;
+		left: 37px;
+		width: 26px;
+		height: 20px;
+
+		border-radius: 100%;
+		animation: bg-color 4s linear 0s infinite alternate;
+	}
+	.large-ball {
+		top: 14px;
+		left: 70px;
+		width: 30px;
+		height: 40px;
+		animation: bg-color 2s ease 0s infinite alternate;
+	}
+
+	.small-ball {
+		top: 10px;
+		left: 6px;
+		width: 15px;
+		height: 15px;
+		animation: bg-color 3s ease-in-out 0s infinite alternate;
+	}
 }
